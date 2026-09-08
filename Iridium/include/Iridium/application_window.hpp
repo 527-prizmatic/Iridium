@@ -69,6 +69,9 @@ namespace ir {
 
 		std::string getTitle();
 
+		/// @brief Enables or disables mouse cursor visibility.
+		void enableMouseCursor(bool val);
+
 	private:
 		std::shared_ptr<sf::RenderWindow> renderWindow_;
 		std::unique_ptr<sf::RenderTexture> renderTexture_;

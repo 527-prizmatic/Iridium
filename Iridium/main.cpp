@@ -1,4 +1,5 @@
 #include "Iridium/application.hpp"
+#include "rendering/text.hpp"
 #include "Project/states/entry_state.hpp"
 
 int main() {

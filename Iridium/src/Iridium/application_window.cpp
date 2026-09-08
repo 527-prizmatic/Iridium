@@ -123,4 +123,9 @@ namespace ir {
 	std::string ApplicationWindow::getTitle() {
 		return windowTitle_;
 	}
+
+	void ApplicationWindow::enableMouseCursor(bool val) {
+		expectValid();
+		renderWindow_->setMouseCursorVisible(val);
+	}
 }
