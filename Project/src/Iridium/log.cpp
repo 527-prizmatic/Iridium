@@ -18,8 +18,12 @@ namespace ir::log {
 		std::list<Entry> gEntryList;
 
 		std::mutex gMutex;
-		std::thread gThread;
-		bool gIsRunning { true };
+		std::jthread gThread;
+		std::atomic<bool> gIsRunning { true };
+
+		std::unique_ptr<std::ofstream> file;
+
+		std::streambuf* coutOriginal;
 
 		std::string assembleMessage(Entry& e) {
 			std::string str;
@@ -35,25 +39,26 @@ namespace ir::log {
 		}
 
 		void update() {
-			while (ir::log::gIsRunning) {
+			while (ir::log::gIsRunning.load()) {
 				if (gEntryList.size() != 0) {
 					std::lock_guard<std::mutex> lock { ir::log::gMutex };
 					std::cout << ir::log::assembleMessage(*ir::log::gEntryList.begin()) << std::endl;
 					ir::log::gEntryList.pop_front();
 				}
 			}
+			std::cout.rdbuf(ir::log::coutOriginal);
+			ir::log::file->close();
 		}
-
-		std::unique_ptr<std::ofstream> file;
 	}
 
 	void startSession() {
 		ir::log::file = std::make_unique<std::ofstream>("EditorLog.txt");
 		if (file && !file->fail()) {
+			ir::log::coutOriginal = std::cout.rdbuf();
 			std::cout.rdbuf(ir::log::file->rdbuf());
 		}
 
-		ir::log::gThread = std::thread(ir::log::update);
+		ir::log::gThread = std::jthread(ir::log::update);
 	}
 
 	void info(std::string_view msg) {
@@ -72,8 +77,7 @@ namespace ir::log {
 	}
 
 	void endSession() {
-		ir::log::gIsRunning = false;
+		ir::log::gIsRunning.store(false);
 		ir::log::gThread.join();
-		ir::log::file->close();
 	}
 }
