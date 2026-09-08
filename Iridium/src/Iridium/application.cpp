@@ -1,5 +1,4 @@
 #include "Iridium/application.hpp"
-#include "Project/core_state.hpp"
 
 namespace ir {
 	Application::Application() {

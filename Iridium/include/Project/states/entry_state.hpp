@@ -1,5 +1,5 @@
-#ifndef PROJECT_TESTSTATE_HPP_
-#define PROJECT_TESTSTATE_HPP_
+#ifndef PROJECT_STATE_ENTRY_HPP_
+#define PROJECT_STATE_ENTRY_HPP_
 
 #include "Iridium/state.hpp"
 #include "Iridium/rendering/rectangle.hpp"
@@ -12,7 +12,7 @@
 #include "Iridium/vgui/input_field.hpp"
 #include "Iridium/vgui/slider.hpp"
 
-class CoreState : public ir::StateBase<CoreState> {
+class EntryState : public ir::StateBase<EntryState> {
 public:
 	void onInitialize() {
 	}
@@ -35,4 +35,4 @@ public:
 private:
 };
 
-#endif // PROJECT_TESTSTATE_HPP_
+#endif // PROJECT_STATE_ENTRY_HPP_
