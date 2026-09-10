@@ -4,6 +4,7 @@
 #include "state_machine.hpp"
 #include "time.hpp"
 #include "input/mouse.hpp"
+#include "input/keyboard.hpp"
 #include "rendering/vertex_renderer.hpp"
 #include "assets/asset_manager.hpp"
 #include "assets/sound_manager.hpp"
@@ -16,7 +17,8 @@ namespace ir {
 	struct ApplicationContext {
 		ir::ApplicationWindow* appWindow {};
 		ir::GameClock* gameClock {};
-		ir::input::Mouse* mouseInput {};
+		ir::input::Mouse* mouse {};
+		ir::input::Keyboard* keyboard {};
 		ir::render::VertexRenderer* vertexRenderer {};
 		ir::AssetManager* assetManager {};
 		ir::SoundManager* soundManager {};
@@ -47,7 +49,8 @@ namespace ir {
 		std::unique_ptr<ir::StateMachine> stateMachine_;
 		std::unique_ptr<ir::ApplicationWindow> appWindow_;
 		std::unique_ptr<ir::GameClock> gameClock_;
-		std::unique_ptr<ir::input::Mouse> mouseInput_;
+		std::unique_ptr<ir::input::Mouse> mouse_;
+		std::unique_ptr<ir::input::Keyboard> keyboard_;
 		std::unique_ptr<ir::render::VertexRenderer> vertexRenderer_;
 		std::unique_ptr<ir::AssetManager> assetManager_;
 		std::unique_ptr<ir::SoundManager> soundManager_;

@@ -9,7 +9,8 @@ namespace ir {
 		initializeComponent(gameClock_);
 		gameClock_->zero();
 
-		initializeComponent(mouseInput_);
+		initializeComponent(mouse_);
+		initializeComponent(keyboard_);
 
 		initializeComponent(assetManager_);
 		initializeComponent(soundManager_, &*assetManager_);
@@ -18,7 +19,8 @@ namespace ir {
 
 		context_.appWindow = &*appWindow_;
 		context_.gameClock = &*gameClock_;
-		context_.mouseInput = &*mouseInput_;
+		context_.mouse = &*mouse_;
+		context_.keyboard = &*keyboard_;
 		context_.vertexRenderer = &*vertexRenderer_;
 		context_.assetManager = &*assetManager_;
 		context_.soundManager = &*soundManager_;
@@ -32,7 +34,8 @@ namespace ir {
 		while (!stateMachine_->hasRequestedExit()) {
 			gameClock_->startTick();
 			appWindow_->reduceBackgroundResourceUsage();
-			mouseInput_->update(*appWindow_);
+			mouse_->update(*appWindow_);
+			keyboard_->update(*appWindow_);
 
 			/// Keep StateMachine init last
 			stateMachine_->initialize();
@@ -50,7 +53,7 @@ namespace ir {
 		Expects(appWindow_ != nullptr);
 		Expects(gameClock_ != nullptr);
 		Expects(stateMachine_ != nullptr);
-		Expects(mouseInput_ != nullptr);
+		Expects(mouse_ != nullptr);
 		Expects(vertexRenderer_ != nullptr);
 	}
 }

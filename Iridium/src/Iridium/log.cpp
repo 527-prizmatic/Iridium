@@ -21,9 +21,10 @@ namespace ir::log {
 		std::jthread gThread;
 		std::atomic<bool> gIsRunning { true };
 
+#if IRIDIUM_LOG_TO_FILE == 1
 		std::unique_ptr<std::ofstream> file;
-
 		std::streambuf* coutOriginal;
+#endif
 
 		std::string assembleMessage(Entry& e) {
 			std::string str;
@@ -46,17 +47,21 @@ namespace ir::log {
 					ir::log::gEntryList.pop_front();
 				}
 			}
+#if IRIDIUM_LOG_TO_FILE == 1
 			std::cout.rdbuf(ir::log::coutOriginal);
 			ir::log::file->close();
+#endif
 		}
 	}
 
 	void startSession() {
+#if IRIDIUM_LOG_TO_FILE == 1
 		ir::log::file = std::make_unique<std::ofstream>("EditorLog.txt");
 		if (file && !file->fail()) {
 			ir::log::coutOriginal = std::cout.rdbuf();
 			std::cout.rdbuf(ir::log::file->rdbuf());
 		}
+#endif
 
 		ir::log::gThread = std::jthread(ir::log::update);
 	}

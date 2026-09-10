@@ -23,17 +23,17 @@ namespace ir::vgui {
 		}
 	}
 
-	bool Element::update(ir::input::Mouse& mouseInput) {
+	bool Element::update(ir::input::Mouse& mouse) {
 		ir::Vector posAbsolute = absolutePosition();
-		bool isInArea = mouseInput.cursorPosition().isInArea(posAbsolute, posAbsolute + size_);
+		bool isInArea = mouse.cursorPosition().isInArea(posAbsolute, posAbsolute + size_);
 
 		bool anyChildrenUpdated = false;
 		for (auto& child : children_) {
-			anyChildrenUpdated |= child.second->update(mouseInput);
+			anyChildrenUpdated |= child.second->update(mouse);
 		}
 
 		if (!anyChildrenUpdated && isInArea) {
-			if (mouseInput.isPressed(sf::Mouse::Button::Left)) {
+			if (mouse.isPressed(sf::Mouse::Button::Left)) {
 				onClick();
 				clickHeld_ = true;
 				for (auto evt : clickEvents) {
@@ -48,7 +48,7 @@ namespace ir::vgui {
 			}
 		}
 		else {
-			if (mouseInput.isPressed(sf::Mouse::Button::Left)) {
+			if (mouse.isPressed(sf::Mouse::Button::Left)) {
 				onDeselect();
 			}
 			else {
@@ -56,7 +56,7 @@ namespace ir::vgui {
 			}
 		}
 
-		if (mouseInput.isReleased(sf::Mouse::Button::Left) && clickHeld_) {
+		if (mouse.isReleased(sf::Mouse::Button::Left) && clickHeld_) {
 			onRelease();
 			for (auto evt : releaseEvents) {
 				evt();

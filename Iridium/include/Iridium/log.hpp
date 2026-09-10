@@ -2,7 +2,8 @@
 #define IRIDIUM_LOG_HPP_
 
 /// Comment out to disable logging
- #define IRIDIUM_ENABLE_LOGGING
+#define IRIDIUM_ENABLE_LOGGING
+#define IRIDIUM_LOG_TO_FILE 0
 
 #ifdef IRIDIUM_ENABLE_LOGGING
 	/// @brief Logs info messages to output stream

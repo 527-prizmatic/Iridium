@@ -23,10 +23,10 @@ namespace ir::vgui {
 	}
 
 	template <typename T>
-	bool InputField<T>::update(ir::input::Mouse& mouseInput) {
+	bool InputField<T>::update(ir::input::Mouse& mouse) {
 		clrBackground_ = focused_ ? clrFocused_ : clrUnfocused_;
 
-		return ir::vgui::Element::update(mouseInput);
+		return ir::vgui::Element::update(mouse);
 	}
 
 	template <typename T>

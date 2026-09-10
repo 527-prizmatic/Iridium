@@ -28,7 +28,7 @@ namespace ir {
 
 			/// @brief Recursively updates the element, as well as its children.
 			/// @return Whether the mouse is in this component's area. Note that if a child element is updated, the parent will not be.
-			virtual bool update(ir::input::Mouse& mouseInput);
+			virtual bool update(ir::input::Mouse& mouse);
 
 			/// @brief Recursively renders the element, as well as its children.
 			virtual void render(ir::render::VertexRenderer& renderer) const;

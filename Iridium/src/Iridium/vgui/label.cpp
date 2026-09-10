@@ -16,7 +16,7 @@ namespace ir::vgui {
 		}
 	}
 
-	bool Label::update(ir::input::Mouse& mouseInput) {
+	bool Label::update(ir::input::Mouse& mouse) {
 		if (parent_ != nullptr) {
 			ir::Vector relativePos {};
 			ir::Vector boundingBoxSize { label_->boundingBoxSize() };
@@ -52,7 +52,7 @@ namespace ir::vgui {
 			size_ = boundingBoxSize;
 		}
 
-	//	return Element::update(mouseInput);
+	//	return Element::update(mouse);
 		return false;
 	}
 

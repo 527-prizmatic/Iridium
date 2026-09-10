@@ -25,7 +25,7 @@ namespace ir {
 
 			Label(std::string text = "label");
 
-			virtual bool update(ir::input::Mouse& mouseInput) override;
+			virtual bool update(ir::input::Mouse& mouse) override;
 			virtual void render(ir::render::VertexRenderer& renderer) const override;
 
 			void setScale(float scale);

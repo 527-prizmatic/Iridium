@@ -11,7 +11,7 @@ namespace ir::vgui {
 		setIcon(filename);
 	}
 
-	bool Icon::update(ir::input::Mouse& mouseInput) {
+	bool Icon::update(ir::input::Mouse& mouse) {
 		return false;
 	}
 

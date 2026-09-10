@@ -11,21 +11,21 @@ namespace ir::vgui {
 		value_ = lowerBound;
 	}
 
-	bool Slider::update(ir::input::Mouse& mouseInput) {
+	bool Slider::update(ir::input::Mouse& mouse) {
 		if (clickHeld_) {
 			ir::Vector posBar1 { absolutePosition() + ir::Vector { kBarMargin, size_.y * .5f - kBarWidth * .5f } };
 			
 			float xMin { posBar1.x }; ///< X position of bar's left edge
 			float xMax { posBar1.x + size_.x - kBarMargin * 2.f }; ///< X position of bar's right edge
 
-			float mouseX { ir::math::clamp(mouseInput.cursorPosition().x, xMin, xMax) };
+			float mouseX { ir::math::clamp(mouse.cursorPosition().x, xMin, xMax) };
 
 			float ratio { (mouseX - xMin) / (xMax - xMin) };
 			int newVal { static_cast<int>(ir::math::interpolate(static_cast<float>(bounds_.lower_ < 0 ? bounds_.lower_ - 1 : bounds_.lower_), static_cast<float>(bounds_.upper_ < 0 ? bounds_.upper_ - 1 : bounds_.upper_), ratio) + .5f) };
 			value_ = newVal;
 		}
 
-		return ir::vgui::Element::update(mouseInput);
+		return ir::vgui::Element::update(mouse);
 	}
 
 	void Slider::render(ir::render::VertexRenderer& renderer) const {

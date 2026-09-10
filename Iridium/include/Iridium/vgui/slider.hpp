@@ -9,7 +9,7 @@ namespace ir::vgui {
 	public:
 		Slider(int lowerBound = 0, int upperBound = 10);
 
-		virtual bool update(ir::input::Mouse& mouseInput) override;
+		virtual bool update(ir::input::Mouse& mouse) override;
 		virtual void render(ir::render::VertexRenderer& renderer) const override;
 
 		void setValue(int val);

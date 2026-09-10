@@ -19,7 +19,7 @@ namespace ir {
 
 			InputField(T defaultValue);
 
-			virtual bool update(ir::input::Mouse& mouseInput) override;
+			virtual bool update(ir::input::Mouse& mouse) override;
 			virtual void render(ir::render::VertexRenderer& renderer) const override;
 
 		//	virtual void onIdle() override;
