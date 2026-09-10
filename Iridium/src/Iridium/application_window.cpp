@@ -20,7 +20,7 @@ namespace ir {
 	ir::Vector ApplicationWindow::size() {
 		expectValid();
 
-		return ir::Vector::fromSFMLVector(renderWindow_->size());
+		return ir::Vector::fromSFMLVector(renderWindow_->getSize());
 	}
 
 	void ApplicationWindow::clear(sf::Color fillColor) {
@@ -70,7 +70,7 @@ namespace ir {
 	void ApplicationWindow::allocateResources() {
 		expectValid();
 
-		allocateResources(renderWindow_->size());
+		allocateResources(renderWindow_->getSize());
 	}
 
 	void ApplicationWindow::allocateResources(sf::Vector2u size) {
@@ -99,9 +99,9 @@ namespace ir {
 
 	[[nodiscard]] sf::Vector2i ApplicationWindow::getMouseCursorPosition() const {
 		if (renderWindow_) {
-			return sf::Mouse::position(*renderWindow_);
+			return sf::Mouse::getPosition(*renderWindow_);
 		} else {
-			return sf::Mouse::position();
+			return sf::Mouse::getPosition();
 		}
 	}
 

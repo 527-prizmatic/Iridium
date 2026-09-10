@@ -110,7 +110,7 @@ namespace ir {
 			return model;
 		}
 		
-		unsigned int Model::width() {
+		unsigned int Model::width() const {
 			int min { 32767 }, max { -32768 };
 			
 			for (auto& c : components_) {
@@ -128,7 +128,7 @@ namespace ir {
 
 		}
 
-		unsigned int Model::height() {
+		unsigned int Model::height() const {
 			int min { 32767 }, max { -32768 };
 
 			for (auto& c : components_) {

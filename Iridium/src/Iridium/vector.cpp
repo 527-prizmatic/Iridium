@@ -109,11 +109,11 @@ namespace ir {
 		if (isZero() || axis.isZero()) {
 			return *this;
 		}
-		float angle { angle(axis) };
-		if (ir::math::isZero(angle)) {
+		float currentAngle { angle(axis) };
+		if (ir::math::isZero(currentAngle)) {
 			return *this;
 		}
-		return rotate(angle * 2.f);
+		return rotate(currentAngle * 2.f);
 	}
 	
 	ir::Vector Vector::mirrorX() const {

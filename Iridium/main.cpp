@@ -1,6 +1,11 @@
-#include "Iridium/application.hpp"
+#include "application.hpp"
 #include "rendering/text.hpp"
-#include "Project/states/entry_state.hpp"
+
+#if __has_include("states/entry_state.hpp")
+	#include "states/entry_state.hpp"
+#else
+	#error entry_state.hpp not found. (Have you run IrSetup.exe?)
+#endif
 
 int main() {
 	ir::log::startSession();

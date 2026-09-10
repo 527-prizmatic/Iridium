@@ -73,7 +73,7 @@ namespace ir::render {
 		return *this;
 	}
 
-	float Text::scale() {
+	float Text::scale() const {
 		return scale_ * kModelHeight;
 	}
 

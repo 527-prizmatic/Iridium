@@ -14,7 +14,7 @@ namespace ir {
 	ir::Vector SubWindow::size() {
 		expectValid();
 
-		return ir::Vector::fromSFMLVector(renderTexture_->size());
+		return ir::Vector::fromSFMLVector(renderTexture_->getSize());
 	}
 
 	void SubWindow::clear(sf::Color fill_color) {
@@ -54,7 +54,7 @@ namespace ir {
 	void SubWindow::allocateResources() {
 		expectValid();
 
-		allocateResources(ir::Vector::fromSFMLVector(renderTexture_->size()));
+		allocateResources(ir::Vector::fromSFMLVector(renderTexture_->getSize()));
 	}
 
 	void SubWindow::allocateResources(ir::Vector size) {
