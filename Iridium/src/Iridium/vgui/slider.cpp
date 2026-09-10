@@ -1,8 +1,8 @@
-#include "Iridium/vgui/slider.hpp"
-#include "Iridium/rendering/vertex_renderer.hpp"
-#include "Iridium/rendering/rectangle.hpp"
+#include "vgui/slider.hpp"
+#include "rendering/vertex_renderer.hpp"
+#include "rendering/rectangle.hpp"
 
-#include "Iridium/input/mouse.hpp"
+#include "input/mouse.hpp"
 
 namespace ir::vgui {
 	Slider::Slider(int lowerBound, int upperBound) {
@@ -13,12 +13,12 @@ namespace ir::vgui {
 
 	bool Slider::update(ir::input::Mouse& mouseInput) {
 		if (clickHeld_) {
-			ir::Vector posBar1 { getAbsolutePosition() + ir::Vector { kBarMargin, size_.y * .5f - kBarWidth * .5f } };
+			ir::Vector posBar1 { absolutePosition() + ir::Vector { kBarMargin, size_.y * .5f - kBarWidth * .5f } };
 			
 			float xMin { posBar1.x }; ///< X position of bar's left edge
 			float xMax { posBar1.x + size_.x - kBarMargin * 2.f }; ///< X position of bar's right edge
 
-			float mouseX { ir::math::clamp(mouseInput.getCursorPosition().x, xMin, xMax) };
+			float mouseX { ir::math::clamp(mouseInput.cursorPosition().x, xMin, xMax) };
 
 			float ratio { (mouseX - xMin) / (xMax - xMin) };
 			int newVal { static_cast<int>(ir::math::interpolate(static_cast<float>(bounds_.lower_ < 0 ? bounds_.lower_ - 1 : bounds_.lower_), static_cast<float>(bounds_.upper_ < 0 ? bounds_.upper_ - 1 : bounds_.upper_), ratio) + .5f) };
@@ -32,7 +32,7 @@ namespace ir::vgui {
 		renderDebugFrame(renderer);
 
 		if (rect_) {
-			ir::Vector posBar1 { getAbsolutePosition() + ir::Vector { kBarMargin, size_.y * .5f - kBarWidth * .5f } };
+			ir::Vector posBar1 { absolutePosition() + ir::Vector { kBarMargin, size_.y * .5f - kBarWidth * .5f } };
 			
 			float xMin { posBar1.x }; ///< X position of bar's left edge
 			float xMax { posBar1.x + size_.x - kBarMargin * 2.f }; ///< X position of bar's right edge
@@ -72,21 +72,21 @@ namespace ir::vgui {
 		clampValue();
 	}
 
-	int Slider::getValue() const { return value_; }
+	int Slider::value() const { return value_; }
 
 	void Slider::setUpperBound(int upper){
 		bounds_.upper_ = upper;
 		clampValue();
 	}
 
-	int Slider::getUpperBound() const { return bounds_.upper_; }
+	int Slider::upperBound() const { return bounds_.upper_; }
 
 	void Slider::setLowerBound(int lower) {
 		bounds_.lower_ = lower;
 		clampValue();
 	}
 
-	int Slider::getLowerBound() const { return bounds_.lower_; }
+	int Slider::lowerBound() const { return bounds_.lower_; }
 
 	void Slider::clampValue() {
 		if (value_ < bounds_.lower_) {

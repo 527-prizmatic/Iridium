@@ -1,8 +1,8 @@
 #ifndef IRIDIUM_ASSET_MANAGER_HPP_
 #define IRIDIUM_ASSET_MANAGER_HPP_
 
-#include "Iridium/libraries.hpp"
-#include "Iridium/exceptions.hpp"
+#include "libraries.hpp"
+#include "exceptions.hpp"
 
 namespace ir {
 	class AssetManager {
@@ -12,14 +12,14 @@ namespace ir {
 		template <typename T>
 		void deleteAsset(T handle) {}
 
-		ir::TextureHandle registerTexture(std::filesystem::path name);
-		ir::TextureAsset* getTexture(ir::TextureHandle handle);
+		[[nodiscard]] ir::TextureHandle registerTexture(std::filesystem::path name);
+		[[nodiscard]] ir::TextureAsset* getTexture(ir::TextureHandle handle);
 
-		ir::SoundHandle registerSound(std::filesystem::path name);
-		ir::SoundAsset* getSound(ir::SoundHandle handle);
+		[[nodiscard]] ir::SoundHandle registerSound(std::filesystem::path name);
+		[[nodiscard]] ir::SoundAsset* getSound(ir::SoundHandle handle);
 		
-		ir::MusicHandle registerMusic(std::filesystem::path name);
-		ir::MusicAsset* getMusic(ir::MusicHandle handle);
+		[[nodiscard]] ir::MusicHandle registerMusic(std::filesystem::path name);
+		[[nodiscard]] ir::MusicAsset* getMusic(ir::MusicHandle handle);
 
 		void playMusic(ir::MusicHandle handle);
 		void pauseMusic(ir::MusicHandle handle);

@@ -1,4 +1,4 @@
-#include "Iridium/rendering/shape.hpp"
+#include "rendering/shape.hpp"
 
 namespace ir {
 	namespace render {

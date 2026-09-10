@@ -1,8 +1,8 @@
 #ifndef IRIDIUM_SUBWINDOW_HPP_
 #define IRIDIUM_SUBWINDOW_HPP_
 
-#include "Iridium/render_target.hpp"
-#include "Iridium/rendering/quad.hpp"
+#include "render_target.hpp"
+#include "rendering/quad.hpp"
 
 namespace ir {
 	class SubWindow: public ir::RenderTarget {
@@ -16,7 +16,7 @@ namespace ir {
 
 		/// @return Size of the internal resources, in pixels
 		/// @attention Attempting to call this function while the window is in an invalid state will throw an exception.
-		ir::Vector getSize();
+		ir::Vector size();
 
 		/// @brief Clears the rendering buffer and fills it with the given color.
 		/// @attention Attempting to call this function while the buffer is in an invalid state will throw an exception.
@@ -49,7 +49,7 @@ namespace ir {
 
 		/// @brief Sets the position where the subwindow should be rendered, relative to the parent.
 		void setPosition(ir::Vector pos) { position_ = pos; }
-		ir::Vector getPosition() const { return position_; }
+		ir::Vector position() const { return position_; }
 
 	private:
 		std::unique_ptr<sf::RenderTexture> renderTexture_;

@@ -1,5 +1,5 @@
-#include "Iridium/rendering/model_renderer.hpp"
-#include "Iridium/rendering/vertex_renderer.hpp"
+#include "rendering/model_renderer.hpp"
+#include "rendering/vertex_renderer.hpp"
 
 namespace ir {
 	namespace render {
@@ -32,7 +32,7 @@ namespace ir {
 			renderer.addPoint(position, v.color * color_);
 		}
 
-		ir::Vector ModelRenderer::getBoundingBoxSize() {
+		ir::Vector ModelRenderer::boundingBoxSize() {
 			ir::Vector posMin { 0.f, 0.f };
 			ir::Vector posMax { 0.f, 0.f };
 			for (auto& cmp : model_) {

@@ -3,11 +3,11 @@
 
 #include <typeinfo>
 
-#include "Iridium/libraries.hpp"
-#include "Iridium/application_window.hpp"
-#include "Iridium/state_machine.hpp"
+#include "libraries.hpp"
+#include "application_window.hpp"
+#include "state_machine.hpp"
 
-#include "Iridium/detail/state.inl"
+#include "detail/state.inl"
 
 namespace ir {
 	class ApplicationContext;

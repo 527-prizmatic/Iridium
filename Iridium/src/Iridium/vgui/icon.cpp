@@ -1,5 +1,5 @@
-#include "Iridium/vgui/icon.hpp"
-#include "Iridium/rendering/model_renderer.hpp"
+#include "vgui/icon.hpp"
+#include "rendering/model_renderer.hpp"
 
 namespace ir::vgui {
 	Icon::Icon() {
@@ -18,7 +18,7 @@ namespace ir::vgui {
 	void Icon::render(ir::render::VertexRenderer& renderer) const {
 		if (modelRenderer_) {
 			modelRenderer_->setColor(clrFrame_);
-			modelRenderer_->setPosition(getAbsolutePosition());
+			modelRenderer_->setPosition(absolutePosition());
 			modelRenderer_->render(renderer);
 		}
 	}
@@ -26,12 +26,10 @@ namespace ir::vgui {
 	void Icon::setScale(float scale) {
 		scale_ = scale;
 		if (modelRenderer_) {
-			unsigned int modelSize { std::max(modelRenderer_->getModel().getHeight(), modelRenderer_->getModel().getWidth()) };
+			unsigned int modelSize { std::max(modelRenderer_->model().height(), modelRenderer_->model().width()) };
 			modelRenderer_->setScale(scale_ / static_cast<float>(modelSize));
 		}
 	}
-
-	float Icon::getScale() { return scale_; }
 
 	void Icon::setIcon(std::filesystem::path filename) {
 		if (modelRenderer_) {

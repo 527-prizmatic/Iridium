@@ -1,7 +1,7 @@
 #ifndef IRIDIUM_VGUI_SLIDER_HPP_
 #define IRIDIUM_VGUI_SLIDER_HPP_
 
-#include "Iridium/vgui/element.hpp"
+#include "vgui/element.hpp"
 
 namespace ir::vgui {
 	/// @brief VGUI slider, for selecting numerical values by moving a cursor along a horizontal line.
@@ -13,13 +13,13 @@ namespace ir::vgui {
 		virtual void render(ir::render::VertexRenderer& renderer) const override;
 
 		void setValue(int val);
-		[[nodiscard]] int getValue() const;
+		[[nodiscard]] int value() const;
 
 		void setUpperBound(int upper);
-		[[nodiscard]] int getUpperBound() const;
+		[[nodiscard]] int upperBound() const;
 
 		void setLowerBound(int lower);
-		[[nodiscard]] int getLowerBound() const;
+		[[nodiscard]] int lowerBound() const;
 
 	private:
 		void clampValue();

@@ -2,7 +2,7 @@
 #define IRIDIUM_VGUI_INFIELD_HPP_
 
 #include <string>
-#include "Iridium/vgui/element.hpp"
+#include "vgui/element.hpp"
 
 namespace ir {
 	namespace render {
@@ -28,26 +28,26 @@ namespace ir {
 			virtual void onSfEvent(const sf::Event& e) override;
 
 			void setValue(T value);
-			T getValue() const;
+			[[nodiscard]] T value() const;
 
 			void setMaxChars(unsigned int max); ///< @brief Sets how long the input can be
 			unsigned int getMaxChars() const; ///< @return How long the input can be
 
 			void setScale(float scale); ///< @brief Sets label scale. As with ir::render::Text, scale equals pixel height.
-			float getScale() const; ///< @return Label scale. As with ir::render::Text, scale equals pixel height.
+			float scale() const; ///< @return Label scale. As with ir::render::Text, scale equals pixel height.
 
 			void setLabelColor(sf::Color clr);
-			sf::Color getLabelColor() const;
+			[[nodiscard]] sf::Color labelColor() const;
 
 			void setColorUnfocused(sf::Color clr); ///< @brief Sets a background color to use when not focused.
-			sf::Color getColorUnfocused() const;
+			[[nodiscard]] sf::Color colorUnfocused() const;
 
 			void setColorFocused(sf::Color clr); ///< @brief Sets a background color to use when focused.
-			sf::Color getColorFocused() const;
+			[[nodiscard]] sf::Color colorFocused() const;
 
 			/// @return Whether the input field is being focused. Only one input field can be focused at a time.
 			/// It is only possible to type in values in a focused input field.
-			bool hasFocus() const;
+			[[nodiscard]] bool hasFocus() const;
 			void focus();
 
 		private:
@@ -65,6 +65,6 @@ namespace ir {
 	}
 }
 
-#include "Iridium/detail/vgui/input_field.inl"
+#include "detail/vgui/input_field.inl"
 
 #endif // IRIDIUM_VGUI_INFIELD_HPP_

@@ -1,7 +1,7 @@
 #ifndef IRIDIUM_VGUI_ICON_HPP_
 #define IRIDIUM_VGUI_ICON_HPP_
 
-#include "Iridium/vgui/element.hpp"
+#include "vgui/element.hpp"
 #include <string>
 
 namespace ir {
@@ -21,7 +21,7 @@ namespace ir {
 			virtual void render(ir::render::VertexRenderer& renderer) const override;
 
 			void setScale(float scale);
-			float getScale();
+			[[nodiscard]] inline float scale() const { return scale_; }
 
 			void setIcon(std::filesystem::path text);
 

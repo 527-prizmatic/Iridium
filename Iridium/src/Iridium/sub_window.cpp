@@ -1,6 +1,6 @@
-#include "Iridium/sub_window.hpp"
-#include "Iridium/exceptions.hpp"
-#include "Iridium/rendering/quad.hpp"
+#include "sub_window.hpp"
+#include "exceptions.hpp"
+#include "rendering/quad.hpp"
 
 namespace ir {
 	SubWindow::SubWindow(ir::Vector size_) {
@@ -11,10 +11,10 @@ namespace ir {
 		allocateResources(size_);
 	}
 
-	ir::Vector SubWindow::getSize() {
+	ir::Vector SubWindow::size() {
 		expectValid();
 
-		return ir::Vector::fromSFMLVector(renderTexture_->getSize());
+		return ir::Vector::fromSFMLVector(renderTexture_->size());
 	}
 
 	void SubWindow::clear(sf::Color fill_color) {
@@ -42,7 +42,7 @@ namespace ir {
 			throw ir::Exceptions::InvalidRenderTarget{};
 		}
 		
-		rect_->setPosition(position_ + ir::Vector{0.f, getSize().y});
+		rect_->setPosition(position_ + ir::Vector{0.f, size().y});
 		rect_->render(*renderTarget.getRenderer());
 
 		if (renderFrame_) {
@@ -54,7 +54,7 @@ namespace ir {
 	void SubWindow::allocateResources() {
 		expectValid();
 
-		allocateResources(ir::Vector::fromSFMLVector(renderTexture_->getSize()));
+		allocateResources(ir::Vector::fromSFMLVector(renderTexture_->size()));
 	}
 
 	void SubWindow::allocateResources(ir::Vector size) {

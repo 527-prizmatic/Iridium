@@ -1,7 +1,7 @@
-#include "Iridium/state_machine.hpp"
-#include "Iridium/state.hpp"
-#include "Iridium/exceptions.hpp"
-#include "Iridium/application.hpp"
+#include "state_machine.hpp"
+#include "state.hpp"
+#include "exceptions.hpp"
+#include "application.hpp"
 
 namespace ir {
 	namespace detail {

@@ -1,5 +1,5 @@
-#include "Iridium/render_target.hpp"
-#include "Iridium/exceptions.hpp"
+#include "render_target.hpp"
+#include "exceptions.hpp"
 
 namespace ir {
 	void RenderTarget::expectValid() {

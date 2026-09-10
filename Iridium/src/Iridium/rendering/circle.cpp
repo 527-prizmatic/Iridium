@@ -1,5 +1,5 @@
-#include "Iridium/rendering/circle.hpp"
-#include "Iridium/rendering/vertex_renderer.hpp"
+#include "rendering/circle.hpp"
+#include "rendering/vertex_renderer.hpp"
 
 namespace ir {
 	namespace render {

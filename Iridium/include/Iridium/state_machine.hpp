@@ -1,7 +1,7 @@
 #ifndef IRIDIUM_STATEMACHINE_HPP_
 #define IRIDIUM_STATEMACHINE_HPP_
 
-#include "Iridium/libraries.hpp"
+#include "libraries.hpp"
 
 namespace ir {
 	namespace detail {

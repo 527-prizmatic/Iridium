@@ -3,7 +3,7 @@
 
 #include <memory>
 #include <vector>
-#include "Iridium/vector.hpp"
+#include "vector.hpp"
 
 namespace ir {
 	namespace input {
@@ -46,7 +46,7 @@ namespace ir {
 
 			/// @brief Looks up and returns a child element with matching key.
 			/// @tparam T Which type the child element should be cast to. If omitted, it will simply return a ir::vgui::Element.
-			Element* getChild(std::string key) const;
+			[[nodiscard]] Element* getChild(std::string key) const;
 		
 			/// These used to be aliases for getChild(), but they turned out to be too cumbersome to use practically
 		//	Element* operator[](std::string key) const;
@@ -61,15 +61,15 @@ namespace ir {
 			virtual void setPosition(ir::Vector pos); ///< @brief Sets position relative to the parent (or the window if there is none)
 			virtual void setSize(ir::Vector size); ///< @brief Sets element size, in pixels
 
-			ir::Vector getPosition() const; ///< @return Position relative to the parent (or the window if there is none)
-			ir::Vector getSize() const; ///< @return Element size, in pixels
-			ir::Vector getAbsolutePosition() const; ///< @return Window-adjusted position (recursively computed as the sum of all parents' relative positions)
+			[[nodiscard]] ir::Vector position() const; ///< @return Position relative to the parent (or the window if there is none)
+			[[nodiscard]] ir::Vector size() const; ///< @return Element size, in pixels
+			[[nodiscard]] ir::Vector absolutePosition() const; ///< @return Window-adjusted position (recursively computed as the sum of all parents' relative positions)
 
 			void setBackgroundColor(sf::Color clr); ///< @brief Sets color of solid background
-			sf::Color getBackgroundColor() const;
+			[[nodiscard]] sf::Color backgroundColor() const;
 			
 			void setFrameColor(sf::Color clr); ///< @brief Sets color of outer frame
-			sf::Color getFrameColor() const;
+			[[nodiscard]] sf::Color frameColor() const;
 
 			void setColors(sf::Color frame, sf::Color background); ///< @brief Sets colors for outer frame and solid background in one function call
 			static void setDebugMode(bool debug); ///< @brief Enables or disables debug mode (forced frame/background rendering)

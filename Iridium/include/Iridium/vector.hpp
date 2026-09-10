@@ -36,7 +36,7 @@ namespace ir {
 		[[nodiscard]] float magnitudeSquare() const;
 
 		/// @return Angle between the vector and another one. If no reference vector is provided, the angle returned will be relative to the X axis.
-		[[nodiscard]] float getAngle(ir::Vector reference = ir::Vector{1.f, 0.f}) const;
+		[[nodiscard]] float angle(ir::Vector reference = ir::Vector{1.f, 0.f}) const;
 
 		/// @return Distance between this vector and another one
 		[[nodiscard]] float distance(ir::Vector other) const;

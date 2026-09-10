@@ -1,7 +1,7 @@
 #ifndef IRIDIUM_RANDOM_HPP_
 #define IRIDIUM_RANDOM_HPP_
 
-#include "Iridium/libraries.hpp"
+#include "libraries.hpp"
 
 namespace ir {
 	namespace Random {

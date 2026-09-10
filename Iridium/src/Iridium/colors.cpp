@@ -1,4 +1,4 @@
-#include "Iridium/colors.hpp"
+#include "colors.hpp"
 
 namespace ir {
 	namespace {

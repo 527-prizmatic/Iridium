@@ -1,4 +1,4 @@
-#include "Iridium/random.hpp"
+#include "random.hpp"
 #include <random>
 
 namespace ir {

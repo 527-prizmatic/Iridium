@@ -1,5 +1,5 @@
-#include "Iridium/assets/sound_manager.hpp"
-#include "Iridium/assets/asset_manager.hpp"
+#include "assets/sound_manager.hpp"
+#include "assets/asset_manager.hpp"
 
 namespace ir {
 	SoundManager::SoundManager(ir::AssetManager* manager) : manager_(manager) {

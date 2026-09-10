@@ -1,8 +1,8 @@
 #ifndef IRIDIUM_APPWINDOW_HPP_
 #define IRIDIUM_APPWINDOW_HPP_
 
-#include "Iridium/render_target.hpp"
-#include "Iridium/rendering/quad.hpp"
+#include "render_target.hpp"
+#include "rendering/quad.hpp"
 
 namespace ir {
 	class ApplicationWindow: public ir::RenderTarget {
@@ -16,7 +16,7 @@ namespace ir {
 
 		/// @return Size of the internal resources, in pixels
 		/// @attention Attempting to call this function while the window is in an invalid state will throw an exception.
-		ir::Vector getSize();
+		ir::Vector size();
 
 		/// @brief Clears the rendering buffer and fills it with the given color.
 		/// @attention Attempting to call this function while the window is in an invalid state will throw an exception.

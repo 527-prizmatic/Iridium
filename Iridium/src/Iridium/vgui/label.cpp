@@ -1,6 +1,6 @@
-#include "Iridium/vgui/label.hpp"
-#include "Iridium/rendering/text.hpp"
-#include "Iridium/rendering/vertex_renderer.hpp"
+#include "vgui/label.hpp"
+#include "rendering/text.hpp"
+#include "rendering/vertex_renderer.hpp"
 
 namespace ir::vgui {
 	Label::Label(std::string text) {
@@ -19,32 +19,32 @@ namespace ir::vgui {
 	bool Label::update(ir::input::Mouse& mouseInput) {
 		if (parent_ != nullptr) {
 			ir::Vector relativePos {};
-			ir::Vector boundingBoxSize { label_->getBoundingBoxSize() };
+			ir::Vector boundingBoxSize { label_->boundingBoxSize() };
 			switch (anchor_) {
 				default:
 				case Anchor::LEFT: {
 					relativePos.x = -boundingBoxSize.x - 5.f;
-					relativePos.y = parent_->getSize().y * .5f - boundingBoxSize.y * .5f;
+					relativePos.y = parent_->size().y * .5f - boundingBoxSize.y * .5f;
 					break;
 				}
 				case Anchor::RIGHT: {
-					relativePos.x = parent_->getSize().x + 5.f;
-					relativePos.y = parent_->getSize().y * .5f - boundingBoxSize.y * .5f;
+					relativePos.x = parent_->size().x + 5.f;
+					relativePos.y = parent_->size().y * .5f - boundingBoxSize.y * .5f;
 					break;
 				}
 				case Anchor::TOP: {
-					relativePos.x = parent_->getSize().x * .5f - boundingBoxSize.x * .5f;
+					relativePos.x = parent_->size().x * .5f - boundingBoxSize.x * .5f;
 					relativePos.y = -boundingBoxSize.y - 5.f;
 					break;
 				}
 				case Anchor::BOTTOM: {
-					relativePos.x = parent_->getSize().x * .5f - boundingBoxSize.x * .5f;
-					relativePos.y = parent_->getSize().y  + 5.f;
+					relativePos.x = parent_->size().x * .5f - boundingBoxSize.x * .5f;
+					relativePos.y = parent_->size().y  + 5.f;
 					break;
 				}
 				case Anchor::OVER: {
-					relativePos.x = parent_->getSize().x * .5f - label_->getBoundingBoxSize().x * .5f;
-					relativePos.y = parent_->getSize().y * .5f - label_->getBoundingBoxSize().y * .5f;
+					relativePos.x = parent_->size().x * .5f - label_->boundingBoxSize().x * .5f;
+					relativePos.y = parent_->size().y * .5f - label_->boundingBoxSize().y * .5f;
 					break;
 				}
 			}
@@ -60,7 +60,7 @@ namespace ir::vgui {
 		renderDebugFrame(renderer);
 
 		if (label_) {
-			label_->setPosition(getAbsolutePosition());
+			label_->setPosition(absolutePosition());
 			label_->render(renderer);
 		}
 		
@@ -73,9 +73,9 @@ namespace ir::vgui {
 		}
 	}
 
-	float Label::getScale() {
+	float Label::scale() {
 		if (label_) {
-			return label_->getScale();
+			return label_->scale();
 		}
 		return -1.f;
 	}
@@ -86,9 +86,9 @@ namespace ir::vgui {
 		}
 	}
 
-	std::string Label::getLabel() {
+	std::string Label::label() const {
 		if (label_) {
-			return label_->getString();
+			return label_->string();
 		}
 		return "ERROR_LABEL";
 	}
@@ -99,9 +99,9 @@ namespace ir::vgui {
 		}
 	}
 	
-	sf::Color Label::getColor() {
+	sf::Color Label::color() const {
 		if (label_) {
-			return label_->getColor();
+			return label_->color();
 		}
 		return sf::Color::Transparent;
 	}
@@ -110,7 +110,7 @@ namespace ir::vgui {
 		anchor_ = anchor;
 	}
 
-	Label::Anchor Label::getAnchor() {
+	Label::Anchor Label::anchor() const {
 		return anchor_;
 	}
 

@@ -1,8 +1,8 @@
 #ifndef IRIDIUM_RENDERING_MODEL_HPP_
 #define IRIDIUM_RENDERING_MODEL_HPP_
 
-#include "Iridium/libraries.hpp"
-#include "Iridium/rendering/shape.hpp"
+#include "libraries.hpp"
+#include "rendering/shape.hpp"
 
 namespace ir {
 	namespace render {
@@ -16,9 +16,7 @@ namespace ir {
 				this->y = y;
 			}
 
-			sf::Vector2i getPosition() {
-				return sf::Vector2i { x, y };
-			}
+			[[nodiscard]] sf::Vector2i position() const { return sf::Vector2i { x, y }; }
 		};
 
 		struct Component {
@@ -35,12 +33,14 @@ namespace ir {
 			Component(Vertex v1, Vertex v2);
 			Component(Vertex v1, Vertex v2, Vertex v3);
 
-			void setPosition(size_t vertex, short x, short y) {
+			inline Component& setPosition(size_t vertex, short x, short y) {
 				vertices[vertex].setPosition(x, y);
+				return *this;
 			}
 
-			void setColor(size_t vertex, sf::Color color) {
+			inline Component& setColor(size_t vertex, sf::Color color) {
 				vertices[vertex].color = color;
+				return *this;
 			}
 			
 			auto begin() { return vertices.begin(); }
@@ -77,8 +77,8 @@ namespace ir {
 			/// @return Dummy model for testing VMF APIs
 			static Model testTriangle();
 
-			size_t getComponentCount() const { return components_.size(); } ///< @return Number of components (points, lines and triangles) in the model
-			const Component& getComponent(size_t index) const { return components_[index]; } ///< @return Component data of the component with requested index
+			[[nodiscard]] size_t componentCount() const { return components_.size(); } ///< @return Number of components (points, lines and triangles) in the model
+			[[nodiscard]] const Component& component(size_t index) const { return components_[index]; } ///< @return Component data of the component with requested index
 
 			void removeLastComponent() {
 				if (components_.size() > 0) {
@@ -91,8 +91,8 @@ namespace ir {
 			auto end() { return components_.end(); } ///< @brief For iterating over component list
 			auto end() const { return components_.end(); } ///< @brief For iterating over component list
 
-			unsigned int getWidth(); ///< @return Width of the model in grid units
-			unsigned int getHeight(); ///< @return Height of the model in grid units
+			[[nodiscard]] unsigned int width() const; ///< @return Width of the model in grid units
+			[[nodiscard]] unsigned int height() const; ///< @return Height of the model in grid units
 
 		private:
 			std::vector<Component> components_;

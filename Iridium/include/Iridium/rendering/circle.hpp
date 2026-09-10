@@ -1,7 +1,7 @@
 #ifndef IRIDIUM_RENDERING_CIRCLE_HPP_
 #define IRIDIUM_RENDERING_CIRCLE_HPP_
 
-#include "Iridium/rendering/shape.hpp"
+#include "rendering/shape.hpp"
 
 namespace ir {
 	namespace render {
@@ -16,8 +16,8 @@ namespace ir {
 			Circle& setRadius(float rds); ///< @brief Sets radius, in pixels
 			Circle& setVertexCount(unsigned int count); ///< @brief Sets vertex count
 
-			inline float getRadius() const { return radius_; } ///< @return Radius, in pixels
-			inline unsigned int getVertexCount() const { return vertexCount_; } ///< @return Vertex count
+			[[nodiscard]] inline float radius() const { return radius_; } ///< @return Radius, in pixels
+			[[nodiscard]] inline unsigned int vertexCount() const { return vertexCount_; } ///< @return Vertex count
 
 		private:
 			float radius_ { 0.f }; ///< Radius

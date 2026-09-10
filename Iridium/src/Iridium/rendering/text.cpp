@@ -1,5 +1,5 @@
-#include "Iridium/rendering/text.hpp"
-#include "Iridium/exceptions.hpp"
+#include "rendering/text.hpp"
+#include "exceptions.hpp"
 #include <sstream>
 
 namespace ir::render {
@@ -26,7 +26,7 @@ namespace ir::render {
 					}
 					model_.addComponent(std::move(cmp));
 				}
-					offset += letter.getWidth() + 1.f;
+					offset += letter.width() + 1.f;
 			}
 			else {
 				offset += 5.f;
@@ -73,7 +73,7 @@ namespace ir::render {
 		return *this;
 	}
 
-	float Text::getScale() {
+	float Text::scale() {
 		return scale_ * kModelHeight;
 	}
 

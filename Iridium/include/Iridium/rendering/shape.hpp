@@ -1,9 +1,9 @@
 #ifndef IRIDIUM_RENDERING_SHAPE_HPP_
 #define IRIDIUM_RENDERING_SHAPE_HPP_
 
-#include "Iridium/vector.hpp"
-#include "Iridium/math.hpp"
-#include "Iridium/colors.hpp"
+#include "vector.hpp"
+#include "math.hpp"
+#include "colors.hpp"
 
 namespace ir {
 	class RenderTarget;
@@ -45,11 +45,11 @@ namespace ir {
 			Shape& setColor(sf::Color color); ///< @brief Sets object color
 			Shape& setMode(ir::render::Mode mode); ///< @brief Sets rendering mode
 
-			inline ir::Vector getPosition() const { return position_; } ///< @return Screen position, in pixels
-			inline float getAngle() const { return angle_; } ///< @return Rotation about the anchor point, in radians
-			inline ir::Vector getAnchor() const { return anchor_; } ///< @return Anchor point, in pixels
-			inline sf::Color getColor() const { return color_; } ///< @return Object color
-			inline ir::render::Mode getMode() const { return mode_; } ///< @return Rendering mode
+			[[nodiscard]] inline ir::Vector position() const { return position_; } ///< @return Screen position, in pixels
+			[[nodiscard]] inline float angle() const { return angle_; } ///< @return Rotation about the anchor point, in radians
+			[[nodiscard]] inline ir::Vector anchor() const { return anchor_; } ///< @return Anchor point, in pixels
+			[[nodiscard]] inline sf::Color color() const { return color_; } ///< @return Object color
+			[[nodiscard]] inline ir::render::Mode mode() const { return mode_; } ///< @return Rendering mode
 
 		protected:
 			ir::Vector position_ { 0.f, 0.f }; ///< Screen position

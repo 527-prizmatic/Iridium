@@ -1,5 +1,5 @@
-#include "Iridium/vector.hpp"
-#include "Iridium/math.hpp"
+#include "vector.hpp"
+#include "math.hpp"
 
 namespace ir {
 	const ir::Vector ir::Vector::kZero = ir::Vector{ 0.f, 0.f };
@@ -43,7 +43,7 @@ namespace ir {
 		return x * x + y * y;
 	}
 	
-	float Vector::getAngle(ir::Vector reference) const {
+	float Vector::angle(ir::Vector reference) const {
 		if (isZero()) {
 			return 0.f;
 		}
@@ -85,7 +85,7 @@ namespace ir {
 	}
 	
 	ir::Vector Vector::recToPol() const {
-		return ir::Vector{ magnitude(), getAngle() };
+		return ir::Vector{ magnitude(), angle() };
 	}
 	
 	ir::Vector Vector::polToRec() const {
@@ -109,7 +109,7 @@ namespace ir {
 		if (isZero() || axis.isZero()) {
 			return *this;
 		}
-		float angle { getAngle(axis) };
+		float angle { angle(axis) };
 		if (ir::math::isZero(angle)) {
 			return *this;
 		}

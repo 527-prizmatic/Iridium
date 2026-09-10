@@ -1,7 +1,7 @@
 #ifndef IRIDIUM_DEVUTILS_HPP_
 #define IRIDIUM_DEVUTILS_HPP_
 
-#include "Iridium/libraries.hpp"
+#include "libraries.hpp"
 
 namespace ir {
 	/// @brief Runs a snippet of code a large number of times and prints total execution time to console.

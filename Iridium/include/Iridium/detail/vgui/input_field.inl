@@ -1,7 +1,7 @@
 static_assert(true);
 
-#include "Iridium/rendering/text.hpp"
-#include "Iridium/rendering/vertex_renderer.hpp"
+#include "rendering/text.hpp"
+#include "rendering/vertex_renderer.hpp"
 
 #include <charconv>
 
@@ -35,7 +35,7 @@ namespace ir::vgui {
 
 		if (label_) {
 			label_->setString(std::to_string(value_));
-			label_->setPosition(getAbsolutePosition() + size_ * .5f - label_->getBoundingBoxSize() * .5f);
+			label_->setPosition(absolutePosition() + size_ * .5f - label_->boundingBoxSize() * .5f);
 			label_->render(renderer);
 		}
 	}
@@ -46,7 +46,7 @@ namespace ir::vgui {
 
 		if (label_) {
 			label_->setString(value_);
-			label_->setPosition(getAbsolutePosition() + size_ * .5f - label_->getBoundingBoxSize() * .5f);
+			label_->setPosition(absolutePosition() + size_ * .5f - label_->boundingBoxSize() * .5f);
 			label_->render(renderer);
 		}
 	}
@@ -134,7 +134,7 @@ namespace ir::vgui {
 	void InputField<T>::setValue(T val) { value_ = val; }
 
 	template <typename T>
-	T InputField<T>::getValue() const { return value_; }
+	T InputField<T>::value() const { return value_; }
 
 	template <typename T>
 	void InputField<T>::setMaxChars(unsigned int max) { 
@@ -167,9 +167,9 @@ namespace ir::vgui {
 	}
 
 	template <typename T>
-	float InputField<T>::getScale() const {
+	float InputField<T>::scale() const {
 		if (label_) {
-			return label_->getScale();
+			return label_->scale();
 		}
 		return -1.f;
 	}
@@ -182,9 +182,9 @@ namespace ir::vgui {
 	}
 	
 	template <typename T>
-	sf::Color InputField<T>::getLabelColor() const {
+	sf::Color InputField<T>::labelColor() const {
 		if (label_) {
-			return label_->getColor();
+			return label_->color();
 		}
 		return sf::Color::Transparent;
 	}
@@ -193,13 +193,13 @@ namespace ir::vgui {
 	void InputField<T>::setColorUnfocused(sf::Color clr) { clrUnfocused_ = clr; }
 	
 	template <typename T>
-	sf::Color InputField<T>::getColorUnfocused() const { return clrUnfocused_; }
+	sf::Color InputField<T>::colorUnfocused() const { return clrUnfocused_; }
 
 	template <typename T>
 	void InputField<T>::setColorFocused(sf::Color clr) { clrFocused_ = clr; }
 	
 	template <typename T>
-	sf::Color InputField<T>::getColorFocused() const { return clrFocused_; }
+	sf::Color InputField<T>::colorFocused() const { return clrFocused_; }
 
 	template <typename T>
 	bool InputField<T>::hasFocus() const { return focused_; }

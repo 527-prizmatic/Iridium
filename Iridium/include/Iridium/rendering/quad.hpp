@@ -1,7 +1,7 @@
 #ifndef IRIDIUM_RENDERING_QUAD_HPP_
 #define IRIDIUM_RENDERING_QUAD_HPP_
 
-#include "Iridium/rendering/rectangle.hpp"
+#include "rendering/rectangle.hpp"
 
 namespace ir {
 	namespace render {
@@ -17,7 +17,7 @@ namespace ir {
 			Quad& setUVs(ir::render::UV uv); ///< Sets UVs, in texture pixels
 			Quad& setTexture(const sf::Texture& texture); ///< Sets texture resource
 
-			ir::render::UV getUVs() { return uv_; } ///< @return UVs, in texture pixels
+			[[nodiscard]] ir::render::UV UVs() const { return uv_; } ///< @return UVs, in texture pixels
 
 		private:
 			ir::render::UV uv_ {}; ///< Texture UVs

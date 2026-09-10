@@ -1,7 +1,7 @@
-#include "Iridium/application_window.hpp"
-#include "Iridium/sub_window.hpp"
-#include "Iridium/exceptions.hpp"
-#include "Iridium/rendering/quad.hpp"
+#include "application_window.hpp"
+#include "sub_window.hpp"
+#include "exceptions.hpp"
+#include "rendering/quad.hpp"
 
 /// @future Add support for other OSes
 #if defined(_WIN32)
@@ -17,10 +17,10 @@ namespace ir {
 		allocateResources(sf::Vector2u{ size });
 	}
 
-	ir::Vector ApplicationWindow::getSize() {
+	ir::Vector ApplicationWindow::size() {
 		expectValid();
 
-		return ir::Vector::fromSFMLVector(renderWindow_->getSize());
+		return ir::Vector::fromSFMLVector(renderWindow_->size());
 	}
 
 	void ApplicationWindow::clear(sf::Color fillColor) {
@@ -70,7 +70,7 @@ namespace ir {
 	void ApplicationWindow::allocateResources() {
 		expectValid();
 
-		allocateResources(renderWindow_->getSize());
+		allocateResources(renderWindow_->size());
 	}
 
 	void ApplicationWindow::allocateResources(sf::Vector2u size) {
@@ -88,7 +88,7 @@ namespace ir {
 	void ApplicationWindow::configureRect() {
 		rect_->setTexture(&renderTexture_->getTexture(), true);
 		rect_->setScale({1.f, -1.f});
-		rect_->setPosition({0.f, static_cast<float>(getSize().y)});
+		rect_->setPosition({0.f, static_cast<float>(size().y)});
 	}
 
 	void ApplicationWindow::setFPS(unsigned int fps) {
@@ -99,9 +99,9 @@ namespace ir {
 
 	[[nodiscard]] sf::Vector2i ApplicationWindow::getMouseCursorPosition() const {
 		if (renderWindow_) {
-			return sf::Mouse::getPosition(*renderWindow_);
+			return sf::Mouse::position(*renderWindow_);
 		} else {
-			return sf::Mouse::getPosition();
+			return sf::Mouse::position();
 		}
 	}
 

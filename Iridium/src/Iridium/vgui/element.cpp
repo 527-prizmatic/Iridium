@@ -1,8 +1,8 @@
-#include "Iridium/vgui/element.hpp"
-#include "Iridium/rendering/rectangle.hpp"
-#include "Iridium/rendering/vertex_renderer.hpp"
+#include "vgui/element.hpp"
+#include "rendering/rectangle.hpp"
+#include "rendering/vertex_renderer.hpp"
 
-#include "Iridium/input/mouse.hpp"
+#include "input/mouse.hpp"
 
 namespace ir::vgui {
 #pragma region Core functions
@@ -24,8 +24,8 @@ namespace ir::vgui {
 	}
 
 	bool Element::update(ir::input::Mouse& mouseInput) {
-		ir::Vector posAbsolute = getAbsolutePosition();
-		bool isInArea = mouseInput.getCursorPosition().isInArea(posAbsolute, posAbsolute + size_);
+		ir::Vector posAbsolute = absolutePosition();
+		bool isInArea = mouseInput.cursorPosition().isInArea(posAbsolute, posAbsolute + size_);
 
 		bool anyChildrenUpdated = false;
 		for (auto& child : children_) {
@@ -137,15 +137,15 @@ namespace ir::vgui {
 		size_ = size;
 	}
 
-	ir::Vector Element::getPosition() const { return pos_; }
-	ir::Vector Element::getSize() const { return size_; }
-	ir::Vector Element::getAbsolutePosition() const { return parent_ != nullptr ? pos_ + parent_->getAbsolutePosition() : pos_; }
+	ir::Vector Element::position() const { return pos_; }
+	ir::Vector Element::size() const { return size_; }
+	ir::Vector Element::absolutePosition() const { return parent_ != nullptr ? pos_ + parent_->absolutePosition() : pos_; }
 	
 	void Element::setBackgroundColor(sf::Color clr) { clrBackground_ = clr; }
-	sf::Color Element::getBackgroundColor() const { return clrBackground_; }
+	sf::Color Element::backgroundColor() const { return clrBackground_; }
 		
 	void Element::setFrameColor(sf::Color clr) { clrFrame_ = clr; }
-	sf::Color Element::getFrameColor() const { return clrFrame_; }
+	sf::Color Element::frameColor() const { return clrFrame_; }
 
 	void Element::setColors(sf::Color frame, sf::Color background) {
 		clrBackground_ = background;
@@ -160,7 +160,7 @@ namespace ir::vgui {
 #pragma region Internal utilities
 	void Element::resizeRectangle() const {
 		if (rect_) {
-			rect_->setPosition(getAbsolutePosition());
+			rect_->setPosition(absolutePosition());
 			rect_->setSize(size_);
 		}
 	}

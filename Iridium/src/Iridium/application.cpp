@@ -1,4 +1,4 @@
-#include "Iridium/application.hpp"
+#include "application.hpp"
 
 namespace ir {
 	Application::Application() {

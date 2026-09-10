@@ -1,5 +1,5 @@
-#include "Iridium/vgui/checkbox.hpp"
-#include "Iridium/rendering/vertex_renderer.hpp"
+#include "vgui/checkbox.hpp"
+#include "rendering/vertex_renderer.hpp"
 
 namespace ir::vgui {
 	void Checkbox::onIdle() {
@@ -27,7 +27,7 @@ namespace ir::vgui {
 	}
 
 	void Checkbox::renderCheckbox(ir::render::VertexRenderer& renderer) const {
-		ir::Vector absPos { getAbsolutePosition() };
+		ir::Vector absPos { absolutePosition() };
 
 		renderer.reset();
 		renderer.addPoint(absPos + ir::Vector { 0.f, size_.y * .5f }, clrFrame_);

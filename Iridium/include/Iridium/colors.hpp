@@ -1,7 +1,7 @@
 #ifndef IRIDIUM_COLORS_HPP_
 #define IRIDIUM_COLORS_HPP_
 
-#include "Iridium/libraries.hpp"
+#include "libraries.hpp"
 
 namespace ir {
 	struct RGBColor;

@@ -1,26 +1,26 @@
 #ifndef IRIDIUM_RENDERING_TEXT_HPP_
 #define IRIDIUM_RENDERING_TEXT_HPP_
 
-#include "Iridium/rendering/model_renderer.hpp"
+#include "rendering/model_renderer.hpp"
 
 namespace ir::render {
 	class Text : public ModelRenderer {
 	public:
 		void setString(std::string str);
-		std::string getString() { return string_; }
+		[[nodiscard]] std::string string() const { return string_; }
 
 		void setColor(sf::Color color) { color_ = color; }
-		sf::Color getColor() { return color_; }
+		[[nodiscard]] sf::Color color() const { return color_; }
 
 		static void loadModels();
 
 		void setModel(Model&& model) = delete;
-		Model& getModel() = delete;
+		[[nodiscard]] Model& model() = delete;
 
 		/// @brief This override of setScale takes into account letter model height, so that a scale of 10 means a height of 10 pixels.
 		Text& setScale(float scale) override;
-		/// @brief This override of getScale takes into account letter model height, so that a scale of 10 means a height of 10 pixels.
-		float getScale() override;
+		/// @brief This override of scale takes into account letter model height, so that a scale of 10 means a height of 10 pixels.
+		[[nodiscard]] float scale() const override;
 
 	private:
 		std::string string_;

@@ -1,5 +1,5 @@
-#include "Iridium/rendering/vertex_renderer.hpp"
-#include "Iridium/render_target.hpp"
+#include "rendering/vertex_renderer.hpp"
+#include "render_target.hpp"
 
 namespace ir {
 	namespace render {

@@ -1,13 +1,13 @@
 #ifndef IRIDIUM_APPLICATION_HPP_
 #define IRIDIUM_APPLICATION_HPP_
 
-#include "Iridium/state_machine.hpp"
-#include "Iridium/time.hpp"
-#include "Iridium/input/mouse.hpp"
-#include "Iridium/rendering/vertex_renderer.hpp"
-#include "Iridium/assets/asset_manager.hpp"
-#include "Iridium/assets/sound_manager.hpp"
-#include "Iridium/exceptions.hpp"
+#include "state_machine.hpp"
+#include "time.hpp"
+#include "input/mouse.hpp"
+#include "rendering/vertex_renderer.hpp"
+#include "assets/asset_manager.hpp"
+#include "assets/sound_manager.hpp"
+#include "exceptions.hpp"
 
 namespace ir {
 	class AssetManager;

@@ -1,7 +1,7 @@
 #ifndef IRIDIUM_TIME_HPP_
 #define IRIDIUM_TIME_HPP_
 
-#include "Iridium/libraries.hpp"
+#include "libraries.hpp"
 
 namespace ir {	
 	using ClockType = std::chrono::steady_clock;

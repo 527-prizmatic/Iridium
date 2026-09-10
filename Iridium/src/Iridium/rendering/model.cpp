@@ -1,5 +1,5 @@
-#include "Iridium/rendering/model.hpp"
-#include "Iridium/exceptions.hpp"
+#include "rendering/model.hpp"
+#include "exceptions.hpp"
 
 namespace ir {
 	namespace render {
@@ -110,7 +110,7 @@ namespace ir {
 			return model;
 		}
 		
-		unsigned int Model::getWidth() {
+		unsigned int Model::width() {
 			int min { 32767 }, max { -32768 };
 			
 			for (auto& c : components_) {
@@ -128,7 +128,7 @@ namespace ir {
 
 		}
 
-		unsigned int Model::getHeight() {
+		unsigned int Model::height() {
 			int min { 32767 }, max { -32768 };
 
 			for (auto& c : components_) {

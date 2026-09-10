@@ -1,7 +1,7 @@
 #ifndef IRIDIUM_RENDERING_RECTANGLE_HPP_
 #define IRIDIUM_RENDERING_RECTANGLE_HPP_
 
-#include "Iridium/rendering/shape.hpp"
+#include "rendering/shape.hpp"
 
 namespace ir {
 	namespace render {
@@ -16,7 +16,7 @@ namespace ir {
 			Rectangle& setSize(float x, float y); ///< @brief Sets size, in pixels
 			Rectangle& setCorners(ir::Vector topLeft, ir::Vector bottomRight); ///< @brief Sets rectangle's corners as screen positions
 
-			inline ir::Vector getSize() const { return size_; } ///< @return Rectangle size, in pixels
+			[[nodiscard]] inline ir::Vector size() const { return size_; } ///< @return Rectangle size, in pixels
 
 		private:
 			ir::Vector size_ { 0.f, 0.f }; ///< Size

@@ -1,4 +1,4 @@
-#include "Iridium/input/mouse.hpp"
+#include "input/mouse.hpp"
 #include <array>
 
 namespace ir {
@@ -26,32 +26,32 @@ namespace ir {
 			}
 		}
 
-		bool Mouse::isIdle(sf::Mouse::Button button) {
+		bool Mouse::isIdle(sf::Mouse::Button button) const {
 			return states_[static_cast<unsigned int>(button)] == States::IDLE;
 		}
 
-		bool Mouse::isPressed(sf::Mouse::Button button) {
+		bool Mouse::isPressed(sf::Mouse::Button button) const {
 			return states_[static_cast<unsigned int>(button)] == States::PRESSED;
 		}
 
-		bool Mouse::isActive(sf::Mouse::Button button) {
+		bool Mouse::isActive(sf::Mouse::Button button) const {
 			return  states_[static_cast<unsigned int>(button)] == States::ACTIVE;
 		}
 
-		bool Mouse::isReleased(sf::Mouse::Button button) {
+		bool Mouse::isReleased(sf::Mouse::Button button) const {
 			return  states_[static_cast<unsigned int>(button)] == States::RELEASED;
 		}
 
-		ir::input::States Mouse::getState(sf::Mouse::Button button) {
+		ir::input::States Mouse::getState(sf::Mouse::Button button) const {
 			return  states_[static_cast<unsigned int>(button)];
 		}
 
-		bool Mouse::isWithinArea(ir::Vector topLeft, ir::Vector size) {
+		bool Mouse::isWithinArea(ir::Vector topLeft, ir::Vector size) const {
 			sf::IntRect area {sf::Vector2i{topLeft}, sf::Vector2i{size}};
 			return area.contains(sf::Vector2i{cursorPosition_});
 		}
 
-		ir::Vector Mouse::getCursorPosition() {
+		[[nodiscard]] ir::Vector Mouse::cursorPosition() const {
 			return cursorPosition_;
 		}
 	}

@@ -1,8 +1,8 @@
 #ifndef IRIDIUM_RENDERTARGET_HPP_
 #define IRIDIUM_RENDERTARGET_HPP_
 
-#include "Iridium/libraries.hpp"
-#include "Iridium/vector.hpp"
+#include "libraries.hpp"
+#include "vector.hpp"
 
 namespace ir {
 	namespace render{
@@ -18,7 +18,7 @@ namespace ir {
 		virtual void setSize(ir::Vector size) = 0;
 
 		/// @return Size of the render target's buffer
-		virtual ir::Vector getSize() = 0;
+		virtual ir::Vector size() = 0;
 
 		/// @brief Completely clears the render target's buffer and fills it with the given color.
 		virtual void clear(sf::Color fillColor = sf::Color::Transparent) = 0;

@@ -2,8 +2,8 @@
 #define IRIDIUM_VGUI_LABEL_HPP_
 
 #include <string>
-#include "Iridium/vgui/element.hpp"
-// #include "Iridium/rendering/text.hpp"
+#include "vgui/element.hpp"
+// #include "rendering/text.hpp"
 
 namespace ir {
 	namespace render {
@@ -29,16 +29,16 @@ namespace ir {
 			virtual void render(ir::render::VertexRenderer& renderer) const override;
 
 			void setScale(float scale);
-			float getScale();
+			float scale();
 
 			void setLabel(std::string text);
-			std::string getLabel();
+			[[nodiscard]] std::string label() const;
 
 			void setColor(sf::Color clr);
-			sf::Color getColor();
+			[[nodiscard]] sf::Color color() const;
 
 			void setAnchor(Anchor anchor);
-			Anchor getAnchor();
+			[[nodiscard]] Anchor anchor() const;
 			
 			virtual void setPosition(ir::Vector pos) override;
 
