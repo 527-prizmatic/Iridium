@@ -16,6 +16,7 @@ namespace ir {
 		public:
 			Icon();
 			Icon(std::filesystem::path filename);
+			Icon(ir::render::Model model);
 
 			virtual bool update(ir::input::Mouse& mouse) override;
 			virtual void render(ir::render::VertexRenderer& renderer) const override;
@@ -24,6 +25,7 @@ namespace ir {
 			[[nodiscard]] inline float scale() const { return scale_; }
 
 			ir::vgui::Icon& setIcon(std::filesystem::path text);
+			ir::vgui::Icon& setIcon(ir::render::Model model);
 
 		private:
 			std::unique_ptr<ir::render::ModelRenderer> modelRenderer_;

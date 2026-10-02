@@ -1,5 +1,7 @@
 #include "assets/asset_manager.hpp"
 
+#include "rendering/model.hpp"
+
 namespace ir {
 	AssetManager::AssetManager() {
 		
@@ -72,6 +74,29 @@ namespace ir {
 	
 	ir::MusicHandle AssetManager::registerMusic(std::filesystem::path name) { return registerAsset<ir::MusicAsset, ir::MusicHandle>(name); }
 	ir::MusicAsset* AssetManager::getMusic(ir::MusicHandle handle) { return getAsset<ir::MusicAsset, ir::MusicHandle>(handle); }
+#pragma endregion
+
+#pragma region ir::render::Model
+	template <>
+	ir::ModelHandle AssetManager::registerAsset<ir::ModelAsset, ir::ModelHandle>(std::filesystem::path name) {
+		ir::ModelHandle handle = std::hash<std::string>{}(name.string());
+		if (models_.find(handle) != models_.end()) {
+			throw name.string();
+		}
+		models_[handle] = std::make_unique<ir::ModelAsset>(ir::render::Model::loadFromFile(std::string(name.string())));
+		return handle;
+	}
+
+	template <>
+	ir::ModelAsset* AssetManager::getAsset<ir::ModelAsset, ir::ModelHandle>(ir::ModelHandle handle) {
+		if (models_.find(handle) == models_.end()) {
+			return nullptr;
+		}
+		return &*models_.at(handle);
+	}
+	
+	ir::ModelHandle AssetManager::registerModel(std::filesystem::path name) { return registerAsset<ir::ModelAsset, ir::ModelHandle>(name); }
+	ir::ModelAsset* AssetManager::getModel(ir::ModelHandle handle) { return getAsset<ir::ModelAsset, ir::ModelHandle>(handle); }
 #pragma endregion
 
 #pragma region Music playback

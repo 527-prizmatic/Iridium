@@ -60,6 +60,7 @@ namespace ir {
 		class Model {
 		public:
 			Model() = default;
+		//	Model(std::filesystem::path path);
 			
 			/// @brief Appends a component at the end of the component list.
 			/// @return Index of the newly added component

@@ -27,13 +27,19 @@
 #include "Iridium/math.hpp"
 
 namespace ir {
+	namespace render {
+		class Model;
+	}
+
 	using TextureHandle = uint32_t;
 	using SoundHandle = uint32_t;
 	using MusicHandle = uint32_t;
+	using ModelHandle = uint32_t;
 
 	using TextureAsset = sf::Texture;
 	using SoundAsset = sf::SoundBuffer;
 	using MusicAsset = sf::Music;
+	using ModelAsset = render::Model;
 }
 
 #endif // IRIDIUM_LIBRARIES_HPP_

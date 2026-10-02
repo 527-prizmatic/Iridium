@@ -4,6 +4,8 @@
 #include "libraries.hpp"
 #include "exceptions.hpp"
 
+#include "rendering/model.hpp"
+
 namespace ir {
 	class AssetManager {
 	public:
@@ -20,6 +22,9 @@ namespace ir {
 		
 		[[nodiscard]] ir::MusicHandle registerMusic(std::filesystem::path name);
 		[[nodiscard]] ir::MusicAsset* getMusic(ir::MusicHandle handle);
+
+		[[nodiscard]] ir::ModelHandle registerModel(std::filesystem::path name);
+		[[nodiscard]] ir::ModelAsset* getModel(ir::ModelHandle handle);
 
 		void playMusic(ir::MusicHandle handle);
 		void pauseMusic(ir::MusicHandle handle);
@@ -46,6 +51,7 @@ namespace ir {
 		std::unordered_map<TextureHandle, std::unique_ptr<ir::TextureAsset>> textures_;
 		std::unordered_map<SoundHandle, std::unique_ptr<ir::SoundAsset>> sounds_;
 		std::unordered_map<MusicHandle, std::unique_ptr<ir::MusicAsset>> musics_;
+		std::unordered_map<ModelHandle, std::unique_ptr<ir::ModelAsset>> models_;
 	};
 
 	template <>	ir::TextureHandle AssetManager::registerAsset<ir::TextureAsset, ir::TextureHandle>(std::filesystem::path name);
@@ -56,6 +62,9 @@ namespace ir {
 
 	template <> ir::MusicHandle AssetManager::registerAsset<ir::MusicAsset, ir::MusicHandle>(std::filesystem::path name);
 	template <> ir::MusicAsset* AssetManager::getAsset<ir::MusicAsset, ir::MusicHandle>(ir::MusicHandle handle);
+
+	template <> ir::ModelHandle AssetManager::registerAsset<ir::ModelAsset, ir::ModelHandle>(std::filesystem::path name);
+	template <> ir::ModelAsset* AssetManager::getAsset<ir::ModelAsset, ir::ModelHandle>(ir::ModelHandle handle);
 }
 
 #endif // IRIDIUM_ASSET_MANAGER_HPP_

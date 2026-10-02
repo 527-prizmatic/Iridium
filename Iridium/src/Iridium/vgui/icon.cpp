@@ -11,6 +11,11 @@ namespace ir::vgui {
 		setIcon(filename);
 	}
 
+	Icon::Icon(ir::render::Model model) {
+		modelRenderer_ = std::make_unique<ir::render::ModelRenderer>();
+		setIcon(model);
+	}
+
 	bool Icon::update(ir::input::Mouse& mouse) {
 		return false;
 	}
@@ -37,6 +42,12 @@ namespace ir::vgui {
 			modelRenderer_->setModel(ir::render::Model::loadFromFile(filename));
 			setScale(scale_);
 		}
+		return *this;
+	}
+
+	ir::vgui::Icon& Icon::setIcon(ir::render::Model model) {
+		modelRenderer_->setModel(model);
+		setScale(scale_);
 		return *this;
 	}
 }
