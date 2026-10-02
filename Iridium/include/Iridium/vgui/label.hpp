@@ -1,7 +1,6 @@
 #ifndef IRIDIUM_VGUI_LABEL_HPP_
 #define IRIDIUM_VGUI_LABEL_HPP_
 
-#include <string>
 #include "vgui/element.hpp"
 #include "rendering/text.hpp"
 

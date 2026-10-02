@@ -1,5 +1,4 @@
 #include "vector.hpp"
-#include "math.hpp"
 
 namespace ir {
 	const ir::Vector ir::Vector::kZero = ir::Vector{ 0.f, 0.f };

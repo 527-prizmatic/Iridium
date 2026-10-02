@@ -1,8 +1,6 @@
 #ifndef IRIDIUM_RENDERING_VERTEX_RENDERER_HPP_
 #define IRIDIUM_RENDERING_VERTEX_RENDERER_HPP_
 
-#include "vector.hpp"
-
 namespace ir {
 	class RenderTarget;
 

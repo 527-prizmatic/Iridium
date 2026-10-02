@@ -1,10 +1,6 @@
 #ifndef IRIDIUM_RENDERING_SHAPE_HPP_
 #define IRIDIUM_RENDERING_SHAPE_HPP_
 
-#include "vector.hpp"
-#include "math.hpp"
-#include "colors.hpp"
-
 namespace ir {
 	class RenderTarget;
 

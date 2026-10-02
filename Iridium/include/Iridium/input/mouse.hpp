@@ -1,7 +1,6 @@
 #ifndef IRIDIUM_INPUT_MOUSE_HPP_
 #define IRIDIUM_INPUT_MOUSE_HPP_
 
-#include "libraries.hpp"
 #include "input/state.hpp"
 #include "application_window.hpp"
 

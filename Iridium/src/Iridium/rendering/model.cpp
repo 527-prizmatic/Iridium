@@ -1,5 +1,4 @@
 #include "rendering/model.hpp"
-#include "exceptions.hpp"
 
 namespace ir {
 	namespace render {

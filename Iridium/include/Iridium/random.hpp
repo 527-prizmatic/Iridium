@@ -1,8 +1,6 @@
 #ifndef IRIDIUM_RANDOM_HPP_
 #define IRIDIUM_RANDOM_HPP_
 
-#include "libraries.hpp"
-
 namespace ir {
 	namespace Random {
 		/// @return Uniformly random 32-bit integer

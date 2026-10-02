@@ -1,5 +1,4 @@
 #include "rendering/text.hpp"
-#include "exceptions.hpp"
 #include <sstream>
 
 namespace ir::render {

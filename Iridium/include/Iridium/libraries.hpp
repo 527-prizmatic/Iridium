@@ -11,6 +11,8 @@
 #include <any>
 #include <list>
 #include <fstream>
+#include <string>
+#include <string_view>
 
 // SFML
 #include <SFML/Graphics.hpp>
@@ -21,10 +23,16 @@
 #include <gsl/gsl>
 
 // JSON
+#include "nlohmann/json.hpp"
 
 // Base-level Iridium components
-#include "Iridium/log.hpp"
-#include "Iridium/math.hpp"
+#include "log.hpp"
+#include "math.hpp"
+#include "vector.hpp"
+#include "random.hpp"
+#include "colors.hpp"
+#include "time.hpp"
+#include "exceptions.hpp"
 
 namespace ir {
 	namespace render {

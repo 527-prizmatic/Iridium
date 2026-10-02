@@ -1,6 +1,4 @@
 #include "application.hpp"
-#include "dev_utils.hpp"
-
 #include <thread>
 
 namespace ir {

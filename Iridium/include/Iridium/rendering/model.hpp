@@ -1,7 +1,6 @@
 #ifndef IRIDIUM_RENDERING_MODEL_HPP_
 #define IRIDIUM_RENDERING_MODEL_HPP_
 
-#include "libraries.hpp"
 #include "rendering/shape.hpp"
 
 namespace ir {

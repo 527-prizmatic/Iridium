@@ -1,9 +1,7 @@
 #ifndef IRIDIUM_VGUI_ELEMENT_HPP_
 #define IRIDIUM_VGUI_ELEMENT_HPP_
 
-#include <memory>
 #include <vector>
-#include "vector.hpp"
 
 namespace ir {
 	namespace input {

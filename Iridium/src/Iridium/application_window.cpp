@@ -1,6 +1,5 @@
 #include "application_window.hpp"
 #include "sub_window.hpp"
-#include "exceptions.hpp"
 #include "rendering/quad.hpp"
 
 /// @future Add support for other OSes

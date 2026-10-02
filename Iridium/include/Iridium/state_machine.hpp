@@ -1,8 +1,6 @@
 #ifndef IRIDIUM_STATEMACHINE_HPP_
 #define IRIDIUM_STATEMACHINE_HPP_
 
-#include "libraries.hpp"
-
 namespace ir {
 	namespace detail {
 		class State;

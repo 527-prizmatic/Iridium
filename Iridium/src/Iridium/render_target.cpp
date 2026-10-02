@@ -1,5 +1,4 @@
 #include "render_target.hpp"
-#include "exceptions.hpp"
 
 namespace ir {
 	void RenderTarget::expectValid() {

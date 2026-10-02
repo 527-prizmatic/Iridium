@@ -3,7 +3,6 @@
 
 #include <typeinfo>
 
-#include "libraries.hpp"
 #include "application_window.hpp"
 #include "state_machine.hpp"
 

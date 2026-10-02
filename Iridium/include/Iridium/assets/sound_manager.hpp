@@ -1,8 +1,6 @@
 #ifndef IRIDIUM_ASSETS_SOUND_MANAGER_HPP_
 #define IRIDIUM_ASSETS_SOUND_MANAGER_HPP_
 
-#include "libraries.hpp"
-
 namespace ir {
 	class AssetManager;
 

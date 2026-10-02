@@ -2,7 +2,6 @@
 #define IRIDIUM_VGUI_ICON_HPP_
 
 #include "vgui/element.hpp"
-#include <string>
 
 namespace ir {
 	namespace render {

@@ -2,7 +2,7 @@
 #define IRIDIUM_MATH_HPP_
 
 #include <cmath>
-#include <vector.hpp>
+#include "vector.hpp"
 
 namespace ir {
 	namespace math {

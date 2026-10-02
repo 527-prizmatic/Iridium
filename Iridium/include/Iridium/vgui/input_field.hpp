@@ -1,7 +1,6 @@
 #ifndef IRIDIUM_VGUI_INFIELD_HPP_
 #define IRIDIUM_VGUI_INFIELD_HPP_
 
-#include <string>
 #include "vgui/element.hpp"
 
 namespace ir {

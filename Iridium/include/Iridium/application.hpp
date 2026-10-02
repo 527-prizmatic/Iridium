@@ -2,13 +2,11 @@
 #define IRIDIUM_APPLICATION_HPP_
 
 #include "state_machine.hpp"
-#include "time.hpp"
 #include "input/mouse.hpp"
 #include "input/keyboard.hpp"
 #include "rendering/vertex_renderer.hpp"
 #include "assets/asset_manager.hpp"
 #include "assets/sound_manager.hpp"
-#include "exceptions.hpp"
 
 namespace ir {
 	class AssetManager;

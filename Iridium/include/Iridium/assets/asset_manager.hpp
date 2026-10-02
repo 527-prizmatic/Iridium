@@ -1,9 +1,6 @@
 #ifndef IRIDIUM_ASSET_MANAGER_HPP_
 #define IRIDIUM_ASSET_MANAGER_HPP_
 
-#include "libraries.hpp"
-#include "exceptions.hpp"
-
 #include "rendering/model.hpp"
 
 namespace ir {

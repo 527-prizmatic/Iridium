@@ -1,5 +1,4 @@
 #include "sub_window.hpp"
-#include "exceptions.hpp"
 #include "rendering/quad.hpp"
 
 namespace ir {
