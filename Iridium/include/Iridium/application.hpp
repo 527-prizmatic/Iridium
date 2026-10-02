@@ -34,7 +34,8 @@ namespace ir {
 
 	class Application {
 	public:
-		Application();
+		Application() {}
+		void initialize();
 
 		/// @brief Starts up the application.
 		/// @tparam T Any derivative of ir::StateBase, for use as the initial StateMachine state
@@ -67,6 +68,8 @@ namespace ir {
 		void runMainLoop();
 
 		ApplicationContext context_ {};
+
+		bool initialized_ { false };
 	};
 }
 

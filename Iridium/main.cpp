@@ -1,6 +1,8 @@
 #include "application.hpp"
 #include "rendering/text.hpp"
 
+#include <thread>
+
 #if __has_include("states/entry_state.hpp")
 	#include "states/entry_state.hpp"
 #else
@@ -10,8 +12,12 @@
 int main() {
 	ir::log::startSession();
 	try {
-		ir::render::Text::loadModels();
+		std::thread thrText([&]() { ir::render::Text::loadModels(); });
+
 		ir::Application app;
+		app.initialize();
+		thrText.join();
+
 		app.run<EntryState>();
 	}
 	catch (...) {
