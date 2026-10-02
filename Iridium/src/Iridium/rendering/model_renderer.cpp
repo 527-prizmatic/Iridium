@@ -4,24 +4,38 @@
 namespace ir {
 	namespace render {
 		void ModelRenderer::render(ir::render::VertexRenderer& renderer) const {
+			/// Caches the previous component type to enable batch rendering whenever possible
+			Component::Type prevType { Component::Type::POINT };
+
+			renderer.reset(sf::PrimitiveType::Points);
 			for (auto& cmp : model_) {
 				if (cmp.type == Component::Type::POINT) {
-					renderer.reset(sf::PrimitiveType::Points);
+					if (prevType != Component::Type::POINT) {
+						renderer.flush();
+						renderer.reset(sf::PrimitiveType::Points);
+					}
 					addVertexToBuffer(cmp.vertices[0], renderer);
 
 				} else if (cmp.type == Component::Type::LINE) {
-					renderer.reset(sf::PrimitiveType::Lines);
+					if (prevType != Component::Type::LINE) {
+						renderer.flush();
+						renderer.reset(sf::PrimitiveType::Lines);
+					}
 					addVertexToBuffer(cmp.vertices[0], renderer);
 					addVertexToBuffer(cmp.vertices[1], renderer);
 
 				} else if (cmp.type == Component::Type::TRIANGLE) {
-					renderer.reset(sf::PrimitiveType::Triangles);
+					if (prevType != Component::Type::TRIANGLE) {
+						renderer.flush();
+						renderer.reset(sf::PrimitiveType::Triangles);
+					}
 					addVertexToBuffer(cmp.vertices[0], renderer);
 					addVertexToBuffer(cmp.vertices[1], renderer);
 					addVertexToBuffer(cmp.vertices[2], renderer);
 				}
-				renderer.flush();
+				prevType = cmp.type;
 			}
+			renderer.flush();
 		}
 		
 		void ModelRenderer::addVertexToBuffer(const Vertex &v, ir::render::VertexRenderer& renderer) const {
