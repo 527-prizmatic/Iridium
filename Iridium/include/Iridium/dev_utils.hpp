@@ -2,6 +2,7 @@
 #define IRIDIUM_DEVUTILS_HPP_
 
 #include "libraries.hpp"
+#include "log.hpp"
 
 namespace ir {
 	/// @brief Runs a snippet of code a large number of times and prints total execution time to console.
@@ -16,9 +17,27 @@ namespace ir {
 		}
 
 		auto endTime = clock.now();
+
+		
+		std::string out;
 		if (testName.compare(""))
-			std::cout << "[" << testName << "] ";
-		std::cout << std::to_string(loops) << " operations took " << std::to_string((endTime - startTime).count()) << "ns to complete" << std::endl;
+			out = "[" + testName + "] ";
+		out += std::to_string(loops) + " operations took " + std::to_string((endTime - startTime).count()) + "ns to complete";
+		LOG_INFO(out);
+	}
+
+	inline void time(std::function<void(void)> func, std::string testName = "") {
+		std::chrono::steady_clock clock;
+		auto startTime = clock.now();
+
+		func();
+
+		auto endTime = clock.now();
+		std::string out;
+		if (testName.compare(""))
+			out = "[" + testName + "] ";
+		out += " Took " + std::to_string((endTime - startTime).count()) + "ns to complete";
+		LOG_INFO(out);
 	}
 }
 
