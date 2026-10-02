@@ -3,7 +3,7 @@
 
 #include <string>
 #include "vgui/element.hpp"
-// #include "rendering/text.hpp"
+#include "rendering/text.hpp"
 
 namespace ir {
 	namespace render {
@@ -16,6 +16,7 @@ namespace ir {
 		class Label : public Element {
 		public:
 			enum class Anchor : unsigned char {
+				NONE,
 				LEFT,
 				RIGHT,
 				TOP,
@@ -28,23 +29,26 @@ namespace ir {
 			virtual bool update(ir::input::Mouse& mouse) override;
 			virtual void render(ir::render::VertexRenderer& renderer) const override;
 
-			void setScale(float scale);
+			ir::vgui::Label& setScale(float scale);
 			float scale();
 
-			void setLabel(std::string text);
-			[[nodiscard]] std::string label() const;
+			ir::vgui::Label& setLabel(std::string text); ///< @brief Sets label text
+			[[nodiscard]] std::string label() const; ///< @return Label text
 
-			void setColor(sf::Color clr);
+			ir::vgui::Label& setColor(sf::Color clr); ///< @brief Sets label color
 			[[nodiscard]] sf::Color color() const;
 
-			void setAnchor(Anchor anchor);
-			[[nodiscard]] Anchor anchor() const;
+			ir::vgui::Label& setAnchor(Anchor anchor); ///< @brief Sets anchoring relative to the parent element
+			[[nodiscard]] Anchor anchor() const; ///< @brief Anchoring relative to the parent element
 			
-			virtual void setPosition(ir::Vector pos) override;
+			/// @brief Sets position relative to the parent (or the window if there is none)
+			///
+			/// If anchoring is set to anything other than Anchor::NONE, this function does nothing.
+			virtual ir::vgui::Element& setPosition(ir::Vector pos) override;
 
 		protected:
 			std::unique_ptr<ir::render::Text> label_;
-			Anchor anchor_;
+			Anchor anchor_ { Anchor::NONE };
 		};
 	}
 }

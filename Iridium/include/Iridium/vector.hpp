@@ -74,6 +74,10 @@ namespace ir {
 		/// @return Opposite of the vector
 		[[nodiscard]] ir::Vector negate() const;
 
+		/// @return Vector dot product
+		[[nodiscard]] static float dot(const ir::Vector a, const ir::Vector b);
+		[[nodiscard]] float dot(const ir::Vector other) const;
+
 		template <typename T>
 		[[nodiscard]] explicit operator sf::Vector2<T>() const {
 			return sf::Vector2<T>{ static_cast<T>(x), static_cast<T>(y) };

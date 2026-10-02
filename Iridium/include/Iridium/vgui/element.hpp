@@ -21,7 +21,7 @@ namespace ir {
 		/// @brief Parent element for all VGUI utilities.
 		///
 		/// VGUI (Vector Graphics UI) is a system that allows to easily build GUIs through a recursive system of nested elements.
-		/// Each element comes with a large set of event triggers to which the user can register custom callbacks.
+		/// Each element comes with a set of event triggers to which the user can register custom callbacks.
 		class Element {
 		public:
 			Element();
@@ -48,40 +48,68 @@ namespace ir {
 			/// @tparam T Which type the child element should be cast to. If omitted, it will simply return a ir::vgui::Element.
 			[[nodiscard]] Element* getChild(std::string key) const;
 		
-			/// These used to be aliases for getChild(), but they turned out to be too cumbersome to use practically
-		//	Element* operator[](std::string key) const;
-		//	Element* operator[](const char* key) const;
+			/// @brief Attempts to climb up the element hierarchy along the given path.
+			/// If at any point a match is not found, the function returns a null pointer.
+			template <typename... Args>
+			[[nodiscard]] Element* getChild(std::string key, Args... args) const {
+				return getChild(key)->getChild(args...);
+			}
+
+			/// @brief Attempts to climb up the element hierarchy along the given path.
+			/// If at any point a match is not found, the function returns a null pointer.
+			/// @tparam T Which type the child element should be cast to. If omitted, it will simply return a ir::vgui::Element.
+			template <typename T, typename... Args>
+			[[nodiscard]] T* getChild(std::string key, Args... args) const {
+				return dynamic_cast<T*>(getChild(key)->getChild(args...));
+			}
 
 			/// @brief Adds a child to this element and assigns it the given key for later lookup.
-			void addChildElement(std::string key, std::unique_ptr<ir::vgui::Element> child);
+			ir::vgui::Element& setChildElement(std::string key, std::unique_ptr<ir::vgui::Element> child);
 		//	void removeChildElement(std::string key);
 		//	void removeChildElement(ir::vgui::Element* child);
 		//	void removeParent();
 
-			virtual void setPosition(ir::Vector pos); ///< @brief Sets position relative to the parent (or the window if there is none)
-			virtual void setSize(ir::Vector size); ///< @brief Sets element size, in pixels
+			template <typename T, typename... Args>
+			T* addChildElement(std::string key, Args... args) {
+				if (children_.contains(key)) {
+					LOG_WARN("addChildElement(): A VGUI sub-element with key " + key + " already exists. Information will be lost.");
+				}
+				auto el { std::make_unique<T>(args...) };
+				el->parent_ = this;
+				children_[key] = std::move(el);
+				children_[key]->resizeRectangle();
+				return dynamic_cast<T*>(&*children_[key]);
+			}
 
+			virtual ir::vgui::Element& setPosition(ir::Vector pos); ///< @brief Sets position relative to the parent (or the window if there is none)
 			[[nodiscard]] ir::Vector position() const; ///< @return Position relative to the parent (or the window if there is none)
-			[[nodiscard]] ir::Vector size() const; ///< @return Element size, in pixels
 			[[nodiscard]] ir::Vector absolutePosition() const; ///< @return Window-adjusted position (recursively computed as the sum of all parents' relative positions)
+			
+			virtual ir::vgui::Element& setSize(ir::Vector size); ///< @brief Sets element size, in pixels
+			[[nodiscard]] ir::Vector size() const; ///< @return Element size, in pixels
 
-			void setBackgroundColor(sf::Color clr); ///< @brief Sets color of solid background
+			ir::vgui::Element& setBackgroundColor(sf::Color clr); ///< @brief Sets color of solid background
 			[[nodiscard]] sf::Color backgroundColor() const;
 			
-			void setFrameColor(sf::Color clr); ///< @brief Sets color of outer frame
+			ir::vgui::Element& setFrameColor(sf::Color clr); ///< @brief Sets color of outer frame
 			[[nodiscard]] sf::Color frameColor() const;
 
-			void setColors(sf::Color frame, sf::Color background); ///< @brief Sets colors for outer frame and solid background in one function call
+			ir::vgui::Element& setColors(sf::Color frame, sf::Color background); ///< @brief Sets colors for outer frame and solid background in one function call
+			
 			static void setDebugMode(bool debug); ///< @brief Enables or disables debug mode (forced frame/background rendering)
 			
-			void registerClickEvent(ir::vgui::ClickEvent event);
-			void registerHoverEvent(ir::vgui::ClickEvent event);
-			void registerReleaseEvent(ir::vgui::ClickEvent event);
+			ir::vgui::Element& registerClickEvent(ir::vgui::ClickEvent event); ///< @brief Registers a new event to call when clicked
+			ir::vgui::Element& registerHoverEvent(ir::vgui::ClickEvent event); ///< @brief Registers a new event to call every frame where the mouse cursor is over the element
+			ir::vgui::Element& registerIdleEvent(ir::vgui::ClickEvent event); ///< @brief Registers a new event to call every frame where the mouse cursor is away from the element
+			ir::vgui::Element& registerReleaseEvent(ir::vgui::ClickEvent event); ///< @brief Registers a new event to call upon click release
 			void processEvent(const sf::Event& evt); ///< @brief Recursively processes SFML events for the element, as well as its children.
+
+			ir::vgui::Element& setEnabled(bool enabled); ///< @brief Sets whether to tick updates for this element and its hierarchy
+			[[nodiscard]] bool enabled() const;
 
 		protected:
 			void renderFrame(ir::render::VertexRenderer& renderer) const; ///< @brief Always renders element frame and background
-			void renderDebugFrame(ir::render::VertexRenderer& renderer) const; ///< @brief Only renders element frame and background is debugMode_ is set to true
+			void renderDebugFrame(ir::render::VertexRenderer& renderer) const; ///< @brief Only renders element frame and background if debugMode_ is set to true
 			void renderChildren(ir::render::VertexRenderer& renderer) const;
 			void resizeRectangle() const;
 
@@ -119,9 +147,11 @@ namespace ir {
 			/// @brief Additional user-defined click events.
 			std::vector<ir::vgui::ClickEvent> clickEvents {};
 			std::vector<ir::vgui::ClickEvent> hoverEvents {};
+			std::vector<ir::vgui::ClickEvent> idleEvents {};
 			std::vector<ir::vgui::ClickEvent> releaseEvents {};
 
 			bool clickHeld_ { false }; ///< @brief Whether left-click is held (for event detection purposes)
+			bool enabled_ { true };
 
 			inline static bool debugMode { false }; ///< @brief Whether debug mode is enabled for all VGUI elements (forces frame rendering)
 		};

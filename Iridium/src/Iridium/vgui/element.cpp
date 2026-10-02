@@ -24,6 +24,10 @@ namespace ir::vgui {
 	}
 
 	bool Element::update(ir::input::Mouse& mouse) {
+		if (!enabled_) {
+			return false;
+		}
+
 		ir::Vector posAbsolute = absolutePosition();
 		bool isInArea = mouse.cursorPosition().isInArea(posAbsolute, posAbsolute + size_);
 
@@ -53,6 +57,9 @@ namespace ir::vgui {
 			}
 			else {
 				onIdle();
+				for (auto evt : idleEvents) {
+					evt();
+				}
 			}
 		}
 
@@ -92,13 +99,17 @@ namespace ir::vgui {
 	}
 	*/
 
-	void Element::addChildElement(std::string key, std::unique_ptr<ir::vgui::Element> child) {
+	ir::vgui::Element& Element::setChildElement(std::string key, std::unique_ptr<ir::vgui::Element> child) {
 		if (child) {
+			if (children_.contains(key)) {
+				LOG_WARN("addChildElement(): A VGUI sub-element with key " + key + " already exists. Information will be lost.");
+			}
 			child->parent_ = this;
 			children_[key] = std::move(child);
 			children_[key]->resizeRectangle();
 			// return children_[key];
 		}
+		return *this;
 	}
 
 	void Element::renderChildren(ir::render::VertexRenderer& renderer) const {
@@ -109,16 +120,24 @@ namespace ir::vgui {
 #pragma endregion
 	
 #pragma region Event management
-	void Element::registerClickEvent(ir::vgui::ClickEvent event) {
+	ir::vgui::Element& Element::registerClickEvent(ir::vgui::ClickEvent event) {
 		clickEvents.push_back(std::move(event));
+		return *this;
 	}
 	
-	void Element::registerHoverEvent(ir::vgui::ClickEvent event) {
+	ir::vgui::Element& Element::registerHoverEvent(ir::vgui::ClickEvent event) {
 		hoverEvents.push_back(std::move(event));
+		return *this;
 	}
 	
-	void Element::registerReleaseEvent(ir::vgui::ClickEvent event) {
+	ir::vgui::Element& Element::registerIdleEvent(ir::vgui::ClickEvent event) {
+		idleEvents.push_back(std::move(event));
+		return *this;
+	}
+	
+	ir::vgui::Element& Element::registerReleaseEvent(ir::vgui::ClickEvent event) {
 		releaseEvents.push_back(std::move(event));
+		return *this;
 	}
 	
 	void Element::processEvent(const sf::Event& evt) {
@@ -130,30 +149,50 @@ namespace ir::vgui {
 #pragma endregion
 
 #pragma region Mutators and accessors
-	void Element::setPosition(ir::Vector pos) {
+	ir::vgui::Element& Element::setPosition(ir::Vector pos) {
 		pos_ = pos;
+		return *this;
 	}
-	void Element::setSize(ir::Vector size) {
+	ir::vgui::Element& Element::setSize(ir::Vector size) {
 		size_ = size;
+		return *this;
 	}
 
 	ir::Vector Element::position() const { return pos_; }
 	ir::Vector Element::size() const { return size_; }
 	ir::Vector Element::absolutePosition() const { return parent_ != nullptr ? pos_ + parent_->absolutePosition() : pos_; }
 	
-	void Element::setBackgroundColor(sf::Color clr) { clrBackground_ = clr; }
+	ir::vgui::Element& Element::setBackgroundColor(sf::Color clr) {
+		clrBackground_ = clr;
+		return *this;
+	}
+
 	sf::Color Element::backgroundColor() const { return clrBackground_; }
 		
-	void Element::setFrameColor(sf::Color clr) { clrFrame_ = clr; }
+	ir::vgui::Element& Element::setFrameColor(sf::Color clr) {
+		clrFrame_ = clr;
+		return *this;
+	}
+
 	sf::Color Element::frameColor() const { return clrFrame_; }
 
-	void Element::setColors(sf::Color frame, sf::Color background) {
+	ir::vgui::Element& Element::setColors(sf::Color frame, sf::Color background) {
 		clrBackground_ = background;
 		clrFrame_ = frame;
+		return *this;
 	}
 
 	void Element::setDebugMode(bool debug) {
 		debugMode = debug;
+	}
+
+	ir::vgui::Element& Element::setEnabled(bool enabled) {
+		enabled_ = enabled;
+		return *this;
+	}
+
+	bool Element::enabled() const {
+		return enabled_;
 	}
 #pragma endregion
 

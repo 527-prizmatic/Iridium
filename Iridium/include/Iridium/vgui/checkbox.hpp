@@ -7,19 +7,21 @@ namespace ir::vgui {
 	/// @brief VGUI checkbox, toggleable with a left mouse click.
 	class Checkbox : public Element {
 	public:
+		Checkbox();
+
 		virtual void render(ir::render::VertexRenderer& renderer) const override;
 		virtual void onIdle() override;
 		virtual void onHover() override;
 		virtual void onClick() override;
 		virtual void onDeselect() override;
 
-		void setEnabled(bool enabled) { enabled_= enabled; }
-		[[nodiscard]] bool isEnabled() const { return enabled_; } ///< @return Whether the checkbox is ticked
+		ir::vgui::Checkbox& setChecked(bool checked);
+		[[nodiscard]] bool checked() const { return checked_; } ///< @return Whether the checkbox is ticked
 
 	private:
 		void renderCheckbox(ir::render::VertexRenderer& renderer) const;
 
-		bool enabled_;
+		bool checked_ { false };
 	};
 }
 
