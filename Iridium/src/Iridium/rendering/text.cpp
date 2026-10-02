@@ -12,7 +12,7 @@ namespace ir::render {
 	unsigned char modelNameToChar(std::string name);
 	Model placeholderLetter();
 
-	void Text::setString(std::string str) {
+	ir::render::Text& Text::setString(std::string str) {
 		string_ = str;
 		float offset { 0.f };
 		model_ = Model();
@@ -30,8 +30,13 @@ namespace ir::render {
 			else {
 				offset += 5.f;
 			}
-
 		}
+		return *this;
+	}
+
+	ir::render::Text& Text::setColor(sf::Color color) {
+		color_ = color;
+		return *this;
 	}
 
 	void Text::addVertexToBuffer(const Vertex& v, ir::render::VertexRenderer& renderer) const {

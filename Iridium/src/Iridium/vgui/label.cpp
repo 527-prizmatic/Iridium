@@ -6,12 +6,13 @@ namespace ir::vgui {
 	Label::Label(std::string text) {
 		label_ = std::make_unique<ir::render::Text>();
 		if (label_) {
-			label_->setString(text);
-			label_->setScale(10.f); ///< Default scale
+			label_->setString(text)
+				.setScale(sDefaultScale);
 		}
 		else {
 			LOG_ERROR("Error during creation of VGUI label \"" + text + "\"");
 		}
+		setAnchor(sDefaultAnchor);
 	}
 
 	bool Label::update(ir::input::Mouse& mouse) {

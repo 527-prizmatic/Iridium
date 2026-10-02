@@ -4,16 +4,22 @@
 namespace ir::vgui {
 	Icon::Icon() {
 		modelRenderer_ = std::make_unique<ir::render::ModelRenderer>();
+
+		setScale(sDefaultScale);
 	}
 
 	Icon::Icon(std::filesystem::path filename) {
 		modelRenderer_ = std::make_unique<ir::render::ModelRenderer>();
 		setIcon(filename);
+		
+		setScale(sDefaultScale);
 	}
 
 	Icon::Icon(ir::render::Model model) {
 		modelRenderer_ = std::make_unique<ir::render::ModelRenderer>();
 		setIcon(model);
+		
+		setScale(sDefaultScale);
 	}
 
 	bool Icon::update(ir::input::Mouse& mouse) {

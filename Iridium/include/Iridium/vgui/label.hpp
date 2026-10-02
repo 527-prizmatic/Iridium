@@ -45,9 +45,13 @@ namespace ir {
 			/// If anchoring is set to anything other than Anchor::NONE, this function does nothing.
 			virtual ir::vgui::Element& setPosition(ir::Vector pos) override;
 
+			inline static float sDefaultScale { 10.f };
+			inline static Anchor sDefaultAnchor { Anchor::NONE };
+			
 		protected:
 			std::unique_ptr<ir::render::Text> label_;
 			Anchor anchor_ { Anchor::NONE };
+
 		};
 	}
 }

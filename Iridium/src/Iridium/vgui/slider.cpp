@@ -9,6 +9,7 @@ namespace ir::vgui {
 		bounds_.lower_ = lowerBound;
 		bounds_.upper_ = upperBound;
 		value_ = lowerBound;
+		clrHeld_ = sDefaultColorHeld;
 	}
 
 	bool Slider::update(ir::input::Mouse& mouse) {
@@ -55,7 +56,7 @@ namespace ir::vgui {
 			rect_->setMode(ir::render::Mode::SOLID);
 			rect_->setPosition(ir::Vector { xCursor, posBar1.y + (kBarWidth - kCursorHeight) * .5f });
 			rect_->setSize(ir::Vector { kCursorWidth, kCursorHeight });
-			rect_->setColor(clickHeld_ ? sf::Color::Red : clrBackground_);
+			rect_->setColor(clickHeld_ ? clrHeld_ : clrBackground_);
 			rect_->render(renderer);
 
 			/// Cursor frame

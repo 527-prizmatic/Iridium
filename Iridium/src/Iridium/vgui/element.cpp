@@ -21,6 +21,8 @@ namespace ir::vgui {
 			rect_->setPosition(ir::Vector { 0.f, 0.f });
 			rect_->setSize(ir::Vector { 100.f, 100.f });
 		}
+
+		setColors(sDefaultFrameColor, sDefaultBackgroundColor);
 	}
 
 	bool Element::update(ir::input::Mouse& mouse) {

@@ -26,6 +26,8 @@ namespace ir {
 			ir::vgui::Icon& setIcon(std::filesystem::path text);
 			ir::vgui::Icon& setIcon(ir::render::Model model);
 
+			inline static float sDefaultScale { 25.f };
+
 		private:
 			std::unique_ptr<ir::render::ModelRenderer> modelRenderer_;
 

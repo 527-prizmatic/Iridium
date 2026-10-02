@@ -49,14 +49,16 @@ namespace ir {
 			[[nodiscard]] bool hasFocus() const;
 			void focus();
 
+			inline static unsigned int sMaxChars { 20u };
+
 		private:
 			std::unique_ptr<ir::render::Text> label_;
 			T value_ {};
 			bool focused_ { false };
 			unsigned int maxChars_ { 20 };
 
-			sf::Color clrUnfocused_ { sf::Color::Blue };
-			sf::Color clrFocused_ { sf::Color::Green };
+			sf::Color clrUnfocused_ { sf::Color::Transparent };
+			sf::Color clrFocused_ { sf::Color::Transparent };
 		};
 
 		using TextField = ir::vgui::InputField<std::string>;

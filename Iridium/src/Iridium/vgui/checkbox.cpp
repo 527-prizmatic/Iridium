@@ -2,8 +2,9 @@
 #include "rendering/vertex_renderer.hpp"
 
 namespace ir::vgui {
-	Checkbox::Checkbox() {
-		size_ = ir::Vector { 20.f, 20.f }; ///< Default size
+	Checkbox::Checkbox(bool checked) {
+		size_ = sDefaultSize; ///< Default size
+		checked_ = checked;
 	}
 
 	void Checkbox::onIdle() {
@@ -33,6 +34,7 @@ namespace ir::vgui {
 	void Checkbox::renderCheckbox(ir::render::VertexRenderer& renderer) const {
 		ir::Vector absPos { absolutePosition() };
 
+		/// The tick
 		renderer.reset(sf::PrimitiveType::TriangleFan);
 		renderer.addPoint(absPos + ir::Vector { 4.f, 5.f }, clrFrame_);
 		renderer.addPoint(absPos + ir::Vector { 4.f, size_.y - 4.f }, clrFrame_);

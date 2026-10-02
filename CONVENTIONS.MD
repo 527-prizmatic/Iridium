@@ -38,5 +38,6 @@
    - All namespaces should be part of the top-level namespace **iridium**.
    - Use namespace **detail** for internal implementation.
  - Private class members use a trailing underscore.
+ - Static variables begin with **s** (as in **sDefaultHeight**).
  - Static constants begin with **k** (as in **kArraySize**), except in obvious mathematical or physical constants (**pi** or **euler** is fine).
  - Global variables begin with **g** (as in **gInstance**).

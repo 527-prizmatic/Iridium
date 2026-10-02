@@ -105,6 +105,9 @@ namespace ir {
 			ir::vgui::Element& setEnabled(bool enabled); ///< @brief Sets whether to tick updates for this element and its hierarchy
 			[[nodiscard]] bool enabled() const;
 
+			inline static sf::Color sDefaultFrameColor { sf::Color::White };
+			inline static sf::Color sDefaultBackgroundColor { sf::Color::Transparent };
+
 		protected:
 			void renderFrame(ir::render::VertexRenderer& renderer) const; ///< @brief Always renders element frame and background
 			void renderDebugFrame(ir::render::VertexRenderer& renderer) const; ///< @brief Only renders element frame and background if debugMode_ is set to true
@@ -140,7 +143,7 @@ namespace ir {
 			ir::Vector size_ { 100.f, 100.f };
 
 			sf::Color clrFrame_ { sf::Color::White };
-			sf::Color clrBackground_ { sf::Color::Blue };
+			sf::Color clrBackground_ { sf::Color::Transparent };
 
 			/// @brief Additional user-defined click events.
 			std::vector<ir::vgui::ClickEvent> clickEvents {};
@@ -152,6 +155,7 @@ namespace ir {
 			bool enabled_ { true };
 
 			inline static bool debugMode { false }; ///< @brief Whether debug mode is enabled for all VGUI elements (forces frame rendering)
+		
 		};
 
 		class FramedElement : public Element {

@@ -10,6 +10,7 @@ namespace ir::vgui {
 	template <typename T>
 	InputField<T>::InputField(T defaultValue) {
 		value_ = defaultValue;
+		setMaxChars(sMaxChars);
 		
 		label_ = std::make_unique<ir::render::Text>();
 		if (label_) {

@@ -21,6 +21,8 @@ namespace ir::vgui {
 		Slider& setLowerBound(int lower);
 		[[nodiscard]] int lowerBound() const;
 
+		inline static sf::Color sDefaultColorHeld { sf::Color::Red };
+
 	private:
 		void clampValue(); ///< @brief Ensures the value stays within bounds
 		[[nodiscard]] float getValueRatio() const; ///< @brief Reverse-interpolates the current value along the slider's interval
@@ -30,6 +32,8 @@ namespace ir::vgui {
 			int lower_ { 10 };
 		} bounds_;
 		int value_;
+
+		sf::Color clrHeld_ { sf::Color::Red };
 		
 		static inline constexpr float kBarWidth { 8.f };
 		static inline constexpr float kBarMargin { 5.f };
