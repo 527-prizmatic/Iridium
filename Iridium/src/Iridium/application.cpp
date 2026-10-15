@@ -15,12 +15,15 @@ namespace ir {
 				initializeComponent(soundManager_, &*assetManager_);
 
 				initializeComponent(stateMachine_);
+
+				initializeComponent(appState_);
 				
 				context_.gameClock = &*gameClock_;
 				context_.mouse = &*mouse_;
 				context_.keyboard = &*keyboard_;
 				context_.assetManager = &*assetManager_;
 				context_.soundManager = &*soundManager_;
+				context_.appState = &*appState_;
 			});
 		
 			initializeComponent(appWindow_, ir::Vector{ 1280.f, 720.f });

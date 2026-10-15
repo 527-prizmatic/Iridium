@@ -12,6 +12,7 @@
 #include <list>
 #include <fstream>
 #include <string>
+#include <optional>
 #include <string_view>
 
 // SFML

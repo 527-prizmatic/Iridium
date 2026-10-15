@@ -16,7 +16,6 @@ public:
 	void onEnd() { }
 
 private:
-
 };
 
 #endif // PROJECT_STATE_ENTRY_HPP_

@@ -7,6 +7,7 @@
 #include "rendering/vertex_renderer.hpp"
 #include "assets/asset_manager.hpp"
 #include "assets/sound_manager.hpp"
+#include "application_state.hpp"
 
 namespace ir {
 	class AssetManager;
@@ -20,6 +21,7 @@ namespace ir {
 		ir::render::VertexRenderer* vertexRenderer {};
 		ir::AssetManager* assetManager {};
 		ir::SoundManager* soundManager {};
+		ir::ApplicationState* appState {};
 
 		float deltaTime() {
 			return gameClock->getDeltaTime();
@@ -53,6 +55,7 @@ namespace ir {
 		std::unique_ptr<ir::render::VertexRenderer> vertexRenderer_;
 		std::unique_ptr<ir::AssetManager> assetManager_;
 		std::unique_ptr<ir::SoundManager> soundManager_;
+		std::unique_ptr<ir::ApplicationState> appState_;
 
 		template <typename T, typename... Args>
 		void initializeComponent(std::unique_ptr<T>& component, Args... args) {
