@@ -28,6 +28,7 @@ namespace ir {
 			std::vector<Vertex> vertices;
 
 			Component();
+			Component(const Component& other);
 			Component(Vertex v1);
 			Component(Vertex v1, Vertex v2);
 			Component(Vertex v1, Vertex v2, Vertex v3);
@@ -63,7 +64,7 @@ namespace ir {
 			
 			/// @brief Appends a component at the end of the component list.
 			/// @return Index of the newly added component
-			size_t addComponent(Component&& cmp);
+			size_t addComponent(Component cmp);
 
 			/// @brief Attempts to load a VMF model from a .vmf file placed in resources\models.
 			/// @param file File name
@@ -84,6 +85,10 @@ namespace ir {
 				if (components_.size() > 0) {
 					components_.pop_back();
 				}
+			}
+
+			void clear() {
+				components_.clear();
 			}
 			
 			auto begin() { return components_.begin(); } ///< @brief For iterating over component list

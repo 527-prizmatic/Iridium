@@ -37,19 +37,19 @@ namespace ir::render {
 				offset += 5.f;
 			}
 		}
-		cacheValid_ = false;
+		resetCacheCounter();
 		return *this;
 	}
 
 	ir::render::Text& Text::setColor(sf::Color color) {
 		color_ = color;
-		cacheValid_ = false;
+		resetCacheCounter();
 		return *this;
 	}
 
 	Text& Text::setScale(float scale) { 
 		scale_ = scale / kModelHeight;
-		cacheValid_ = false;
+		resetCacheCounter();
 		return *this;
 	}
 

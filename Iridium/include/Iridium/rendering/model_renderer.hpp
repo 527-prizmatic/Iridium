@@ -8,7 +8,13 @@ namespace ir::render {
 	/// @brief Utility class for rendering VMF models.
 	class ModelRenderer : public Shape {
 	public:
-		virtual void render(ir::render::VertexRenderer& renderer) const;
+		ModelRenderer();
+
+		/// @brief Draws the object on the given render target.
+		///
+		/// `ir::render::ModelRenderer`'s version of this function dynamically caches rendering data
+		/// after a certain number of calls since last cache invalidation (stored in `ir::render::Shape::kCacheReset`).
+		virtual void render(ir::render::VertexRenderer& renderer) const;	
 
 		ModelRenderer& setModel(Model& model);
 		ModelRenderer& setModel(Model&& model);
@@ -28,8 +34,19 @@ namespace ir::render {
 		/// This would require a solid memory management system though, to avoid leaks in case the renderer ever gains ownership of the model one way or another
 		/// (Though ideally it should never do so)
 		Model model_;
+		std::unique_ptr<Model> renderingCache_;
+		
+		/// @brief Preemptively applies position and color transformations to the contents of `model_`
+		/// and stores results in `renderingCache_`.
+		void regenerateCache() const;
+
+		virtual void directRender(ir::render::VertexRenderer& renderer) const; ///< Renders directly by recomputing vertex values at runtime
+		virtual void cachedRender(ir::render::VertexRenderer& renderer) const; ///< Renders from cache
 
 		virtual void addVertexToBuffer(const Vertex& v, ir::render::VertexRenderer& renderer) const;
+		virtual void addVertexToBuffer(ir::Vector pos, sf::Color clr, ir::render::VertexRenderer& renderer) const;
+
+		Vertex transformVertex(const Vertex &v) const;
 		
 		std::unique_ptr<sf::VertexArray> vertexCache_;
 	};

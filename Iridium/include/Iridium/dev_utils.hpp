@@ -16,7 +16,7 @@ namespace ir {
 		auto endTime = clock.now();
 
 		
-		std::string out;
+		std::string out {};
 		if (testName.compare("")) {
 			out = "[" + testName + "] ";
 		}
@@ -31,7 +31,7 @@ namespace ir {
 		func();
 
 		auto endTime = clock.now();
-		std::string out;
+		std::string out {};
 		if (testName.compare("")) {
 			out = "[" + testName + "] ";
 		}

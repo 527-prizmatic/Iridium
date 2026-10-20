@@ -55,7 +55,9 @@ namespace ir {
 			sf::Color color_ { sf::Color::White }; ///< Object color
 			ir::render::Mode mode_ { ir::render::Mode::WIREFRAME }; ///< Rendering mode
 
-			bool cacheValid_ { false };
+			mutable int cacheCounter_ { 0 }; ///< Counts render calls since last cache invalidation
+			static const int kCacheReset_ { -3 }; ///< Render calls before switching to cached render mode
+			void resetCacheCounter() { cacheCounter_ = kCacheReset_; } ///< Invalidates cache
 		};
 	}
 }

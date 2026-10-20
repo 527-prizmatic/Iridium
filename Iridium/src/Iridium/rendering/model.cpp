@@ -6,6 +6,13 @@ namespace ir {
 			vertices.resize(3);
 		}
 
+		Component::Component(const Component& other) {
+			type = other.type;
+			for (auto v : other.vertices) {
+				vertices.push_back(v);
+			}
+		}
+
 		Component::Component(Vertex v1) {
 			vertices.resize(1);
 			type = Component::Type::POINT;
@@ -27,7 +34,7 @@ namespace ir {
 			vertices[2] = v3;
 		}
 
-		size_t Model::addComponent(Component&& cmp) {
+		size_t Model::addComponent(Component cmp) {
 			components_.push_back(cmp);
 			return components_.size() - 1;
 		}
@@ -64,7 +71,7 @@ namespace ir {
 					cmp.vertices[i] = v;
 				}
 
-				model.addComponent(std::move(cmp));
+				model.addComponent(cmp);
 			}
 			stream.close();
 
@@ -101,10 +108,10 @@ namespace ir {
 			Vertex v2(50, 83, sf::Color(0, 255, 0, 64));
 			Vertex v3(50, -83, sf::Color(0, 0, 255, 64));
 
-			model.addComponent(std::move(Component(v1, v2, v3)));
-			model.addComponent(std::move(Component(v1, v2)));
-			model.addComponent(std::move(Component(v2, v3)));
-			model.addComponent(std::move(Component(v1, v3)));
+			model.addComponent(Component(v1, v2, v3));
+			model.addComponent(Component(v1, v2));
+			model.addComponent(Component(v2, v3));
+			model.addComponent(Component(v1, v3));
 
 			return model;
 		}
