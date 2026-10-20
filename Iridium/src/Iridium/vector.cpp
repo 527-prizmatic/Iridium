@@ -36,7 +36,11 @@ namespace ir {
 	}
 	
 	float Vector::magnitude() const {
-		return std::sqrtf(magnitudeSquare());
+		float mag2 { magnitudeSquare() };
+		if (ir::math::isZero(mag2 - 1.f)) { ///< Special case for unit vectors
+			return mag2;
+		}
+		return std::sqrtf(mag2);
 	}
 
 	float Vector::magnitudeSquare() const {
@@ -47,6 +51,9 @@ namespace ir {
 		if (isZero()) {
 			return 0.f;
 		}
+		if (*this == reference) { ///< Special case if both vectors are equal
+			return 0.f;
+		}
 		return std::atan2(y, x) - std::atan2(reference.y, reference.x);
 	}
 	
@@ -55,7 +62,10 @@ namespace ir {
 	}
 	
 	ir::Vector Vector::normalize() const {
-		if (isZero()) {
+		if (isZero()) { ///< Special case for zero vectors
+			return kUnit;
+		}
+		if (ir::math::isZero(this->magnitudeSquare() - 1.f)) { ///< Special case for unit vectors
 			return *this;
 		}
 		return *this / magnitude();
@@ -73,14 +83,16 @@ namespace ir {
 	
 	ir::Vector Vector::clampMagnitude(float min, float max) const {
 		Expects(max >= min);
+		Expects(min >= 0.f);
 
-		float mag { magnitude() };
-		if (mag < min) {
-			return *this / mag * min;
+		float mag2 { magnitudeSquare() };
+		if (mag2 < min * min) {
+			return *this / magnitude() * min;
 		}
-		if (mag > max) {
-			return *this / mag * max;
+		if (mag2 > max * max) {
+			return *this / magnitude() * max;
 		}
+
 		return *this;
 	}
 	
@@ -93,9 +105,22 @@ namespace ir {
 	}
 	
 	ir::Vector Vector::rotate(float angle) const {
-		if (ir::math::isZero(angle) || isZero()) {
+		if (ir::math::isZero(angle) || isZero()) { ///< Special case if any argument is zero
 			return *this;
 		}
+
+		if (angle == ir::math::pi) { ///< Special case for pi
+			return -*this;
+		}
+		
+		if (angle == ir::math::pi * .5f) { ///< Special case for pi/2
+			return ir::Vector { -this->y, this->x };
+		}
+		
+		if (angle == ir::math::pi * -.5f) { ///< Special case for -pi/2
+			return ir::Vector { this->y, -this->x };
+		}
+
 		ir::Vector v { recToPol() };
 		v.y += angle;
 		return v.polToRec();

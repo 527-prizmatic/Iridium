@@ -45,9 +45,11 @@ namespace ir {
 		[[nodiscard]] ir::Vector normalize() const;
 
 		/// @brief Clamps the vector's magnitude below the given threshold.
+		/// Due to the mathematical definition of magnitude, this function cannot work with negative values.
 		[[nodiscard]] ir::Vector clampMagnitude(float max) const;
 
 		/// @brief Clamps the vector's magnitude between the given thresholds.
+		/// Due to the mathematical definition of magnitude, this function cannot work with negative values.
 		[[nodiscard]] ir::Vector clampMagnitude(float min, float max) const;
 
 		/// @brief Converts a cartesian-space vector into polar vector space.

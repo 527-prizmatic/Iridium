@@ -84,7 +84,6 @@ namespace ir {
 		[[nodiscard]] constexpr ir::Vector interpolate(const ir::Vector a, const ir::Vector b, const float t) noexcept {
 			return (b - a) * t + a;
 		}
-
 	}
 }
 
