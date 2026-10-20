@@ -6,10 +6,13 @@
 namespace ir::render {
 	class Text : public ModelRenderer {
 	public:
+		Text();
+		Text(std::string str);
+
 		ir::render::Text& setString(std::string str);
 		[[nodiscard]] std::string string() const { return string_; }
 
-		ir::render::Text& setColor(sf::Color color);
+		ir::render::Text& setColor(sf::Color color) override;
 		[[nodiscard]] sf::Color color() const { return color_; }
 
 		static void loadModels();

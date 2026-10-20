@@ -12,6 +12,12 @@ namespace ir::render {
 	unsigned char modelNameToChar(std::string name);
 	Model placeholderLetter();
 
+	Text::Text() { }
+
+	Text::Text(std::string str) {
+		setString(str);
+	}
+
 	ir::render::Text& Text::setString(std::string str) {
 		string_ = str;
 		float offset { 0.f };
@@ -31,12 +37,24 @@ namespace ir::render {
 				offset += 5.f;
 			}
 		}
+		cacheValid_ = false;
 		return *this;
 	}
 
 	ir::render::Text& Text::setColor(sf::Color color) {
 		color_ = color;
+		cacheValid_ = false;
 		return *this;
+	}
+
+	Text& Text::setScale(float scale) { 
+		scale_ = scale / kModelHeight;
+		cacheValid_ = false;
+		return *this;
+	}
+
+	float Text::scale() const {
+		return scale_ * kModelHeight;
 	}
 
 	void Text::addVertexToBuffer(const Vertex& v, ir::render::VertexRenderer& renderer) const {
@@ -70,15 +88,6 @@ namespace ir::render {
 		else {
 			LOG_WARN("Attempted to load text models multiple times");
 		}
-	}
-
-	Text& Text::setScale(float scale) { 
-		scale_ = scale / kModelHeight;
-		return *this;
-	}
-
-	float Text::scale() const {
-		return scale_ * kModelHeight;
 	}
 
 	std::string charToModelName(unsigned char c) {

@@ -17,8 +17,9 @@ namespace ir {
 
 		
 		std::string out;
-		if (testName.compare(""))
+		if (testName.compare("")) {
 			out = "[" + testName + "] ";
+		}
 		out += std::to_string(loops) + " operations took " + std::to_string((endTime - startTime).count()) + "ns to complete";
 		LOG_INFO(out);
 	}
@@ -31,9 +32,10 @@ namespace ir {
 
 		auto endTime = clock.now();
 		std::string out;
-		if (testName.compare(""))
+		if (testName.compare("")) {
 			out = "[" + testName + "] ";
-		out += " Took " + std::to_string((endTime - startTime).count()) + "ns to complete";
+		}
+		out += "Took " + std::to_string((endTime - startTime).count()) + "ns to complete";
 		LOG_INFO(out);
 	}
 }

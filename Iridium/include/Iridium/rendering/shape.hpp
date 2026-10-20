@@ -34,11 +34,12 @@ namespace ir {
 			/// @brief Draws the object on the given render target.
 			virtual void render(ir::render::VertexRenderer& renderer) const = 0;
 
-			Shape& setPosition(ir::Vector pos); ///< @brief Sets screen position, in pixels
-			Shape& setAngle(float angle); ///< @brief Sets rotation about the anchor point, CW in radians (0 degrees is up)
-			Shape& setAnchor(ir::Vector anchor); ///< @brief Sets anchor point, in pixels
-			Shape& setAnchor(float x, float y); ///< @brief Sets anchor point, in pixels
-			Shape& setColor(sf::Color color); ///< @brief Sets object color
+			virtual Shape& setPosition(float x, float y); ///< @brief Sets screen position, in pixels
+			virtual Shape& setPosition(ir::Vector pos); ///< @brief Sets screen position, in pixels
+			virtual Shape& setAngle(float angle); ///< @brief Sets rotation about the anchor point, CW in radians (0 degrees is up)
+			virtual Shape& setAnchor(ir::Vector anchor); ///< @brief Sets anchor point, in pixels
+			virtual Shape& setAnchor(float x, float y); ///< @brief Sets anchor point, in pixels
+			virtual Shape& setColor(sf::Color color); ///< @brief Sets object color
 			Shape& setMode(ir::render::Mode mode); ///< @brief Sets rendering mode
 
 			[[nodiscard]] inline ir::Vector position() const { return position_; } ///< @return Screen position, in pixels
@@ -53,6 +54,8 @@ namespace ir {
 			ir::Vector anchor_ { 0.f, 0.f }; ///< Anchor point
 			sf::Color color_ { sf::Color::White }; ///< Object color
 			ir::render::Mode mode_ { ir::render::Mode::WIREFRAME }; ///< Rendering mode
+
+			bool cacheValid_ { false };
 		};
 	}
 }
