@@ -8,8 +8,8 @@
 class EntryState : public ir::StateBase<EntryState> {
 public:
 	void onInitialize() {
-		text_ = std::make_unique<ir::render::Text>("abcdefghijklmnopqrstuvwxyz abcdefghijklmnopqrstuvwxyz");
-		text_->setColor(sf::Color::Green)
+		text_.Create("abcdefghijklmnopqrstuvwxyz abcdefghijklmnopqrstuvwxyz")
+			->setColor(sf::Color::Green)
 			.setScale(15.f)
 			.setMode(ir::render::Mode::WIREFRAME);
 	}
@@ -30,7 +30,7 @@ public:
 	void onEnd() { }
 
 private:
-	std::unique_ptr<ir::render::Text> text_;
+	ir::LazyPointer<ir::render::Text> text_;
 };
 
 #endif // PROJECT_STATE_ENTRY_HPP_

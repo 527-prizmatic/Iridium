@@ -34,6 +34,7 @@
 #include "colors.hpp"
 #include "time.hpp"
 #include "exceptions.hpp"
+#include "pointers.hpp"
 
 namespace ir {
 	namespace render {

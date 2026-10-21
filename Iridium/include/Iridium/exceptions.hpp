@@ -59,6 +59,16 @@ namespace ir {
 		private:
 			std::string what_ {};
 		};
+		
+		class InvalidSafePtr : public std::exception {
+		public:
+			InvalidSafePtr() : what_ { "Attempted to dereference invalid safe pointer" } {}
+
+			const char * what() { return what_.c_str(); }
+
+		private:
+			std::string what_ {};
+		};
 	}
 }
 
