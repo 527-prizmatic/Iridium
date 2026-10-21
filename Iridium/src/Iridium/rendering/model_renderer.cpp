@@ -4,6 +4,7 @@
 namespace ir::render {
 	ModelRenderer::ModelRenderer() : Shape() {
 		renderingCache_ = std::make_unique<ir::render::Model>();
+		mode_ = ir::render::Mode::SOLID;
 	}
 
 	void ModelRenderer::render(ir::render::VertexRenderer& renderer) const {
@@ -52,12 +53,14 @@ namespace ir::render {
 
 		renderer.reset(sf::PrimitiveType::Points);
 		for (auto& cmp : model_) {
-			if (cmp.type == Component::Type::POINT) {
+			if (cmp.type == Component::Type::POINT && mode_ == Mode::SOLID) {
 				if (prevType != Component::Type::POINT) {
 					renderer.flush();
 					renderer.reset(sf::PrimitiveType::Points);
 				}
 				addVertexToBuffer(transformVertex(cmp.vertices[0]), renderer);
+
+				prevType = cmp.type;
 
 			} else if (cmp.type == Component::Type::LINE) {
 				if (prevType != Component::Type::LINE) {
@@ -67,7 +70,9 @@ namespace ir::render {
 				addVertexToBuffer(transformVertex(cmp.vertices[0]), renderer);
 				addVertexToBuffer(transformVertex(cmp.vertices[1]), renderer);
 
-			} else if (cmp.type == Component::Type::TRIANGLE) {
+				prevType = cmp.type;
+
+			} else if (cmp.type == Component::Type::TRIANGLE && mode_ == Mode::SOLID) {
 				if (prevType != Component::Type::TRIANGLE) {
 					renderer.flush();
 					renderer.reset(sf::PrimitiveType::Triangles);
@@ -75,8 +80,9 @@ namespace ir::render {
 				addVertexToBuffer(transformVertex(cmp.vertices[0]), renderer);
 				addVertexToBuffer(transformVertex(cmp.vertices[1]), renderer);
 				addVertexToBuffer(transformVertex(cmp.vertices[2]), renderer);
+
+				prevType = cmp.type;
 			}
-			prevType = cmp.type;
 		}
 		renderer.flush();
 	}
@@ -87,12 +93,14 @@ namespace ir::render {
 
 		renderer.reset(sf::PrimitiveType::Points);
 		for (auto& cmp : *renderingCache_) {
-			if (cmp.type == Component::Type::POINT) {
+			if (cmp.type == Component::Type::POINT && mode_ == Mode::SOLID) {
 				if (prevType != Component::Type::POINT) {
 					renderer.flush();
 					renderer.reset(sf::PrimitiveType::Points);
 				}
 				addVertexToBuffer(cmp.vertices[0], renderer);
+
+				prevType = cmp.type;
 
 			} else if (cmp.type == Component::Type::LINE) {
 				if (prevType != Component::Type::LINE) {
@@ -102,7 +110,9 @@ namespace ir::render {
 				addVertexToBuffer(cmp.vertices[0], renderer);
 				addVertexToBuffer(cmp.vertices[1], renderer);
 
-			} else if (cmp.type == Component::Type::TRIANGLE) {
+				prevType = cmp.type;
+
+			} else if (cmp.type == Component::Type::TRIANGLE && mode_ == Mode::SOLID) {
 				if (prevType != Component::Type::TRIANGLE) {
 					renderer.flush();
 					renderer.reset(sf::PrimitiveType::Triangles);
@@ -110,8 +120,9 @@ namespace ir::render {
 				addVertexToBuffer(cmp.vertices[0], renderer);
 				addVertexToBuffer(cmp.vertices[1], renderer);
 				addVertexToBuffer(cmp.vertices[2], renderer);
+
+				prevType = cmp.type;
 			}
-			prevType = cmp.type;
 		}
 		renderer.flush();
 	}

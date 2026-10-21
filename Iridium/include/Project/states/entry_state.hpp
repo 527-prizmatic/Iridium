@@ -10,7 +10,8 @@ public:
 	void onInitialize() {
 		text_ = std::make_unique<ir::render::Text>("abcdefghijklmnopqrstuvwxyz abcdefghijklmnopqrstuvwxyz");
 		text_->setColor(sf::Color::Green)
-			.setScale(15.f);
+			.setScale(15.f)
+			.setMode(ir::render::Mode::WIREFRAME);
 	}
 
 	void onReceiveEvent(const sf::Event& event) { }
