@@ -57,28 +57,22 @@ namespace ir {
 	}
 
 	void SubWindow::allocateResources(ir::Vector size) {
-		if (renderTexture_ != nullptr) {
-			renderTexture_.reset();
-		}
+		renderTexture_.reset();
 
-		renderTexture_ = std::make_unique<sf::RenderTexture>(sf::Vector2u{size});
+		renderTexture_.create(sf::Vector2u{size});
 		configureRect(size);
 		configureFrame(size);
 	}
 
 	void SubWindow::configureRect(ir::Vector size) {
-		if (rect_ == nullptr) {
-			rect_ = std::make_unique<ir::render::Quad>();
-		}
+		rect_.create();
 
 		rect_->setTexture(renderTexture_->getTexture());
 		rect_->setSize(size.mirrorX());
 	}
 	
 	void SubWindow::configureFrame(ir::Vector size) {
-		if (frame_ == nullptr) {
-			frame_ = std::make_unique<ir::render::Rectangle>();
-		}
+		frame_.create();
 		frame_->setSize(size.x - 1.f, size.y - 1.f); /// -1 on each dimension so it precisely lines up with the edges of the subwindow
 	}
 

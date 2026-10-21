@@ -8,13 +8,14 @@
 class EntryState : public ir::StateBase<EntryState> {
 public:
 	void onInitialize() {
-		text_.Create("abcdefghijklmnopqrstuvwxyz abcdefghijklmnopqrstuvwxyz")
+		text_.create("abcdefghijklmnopqrstuvwxyz abcdefghijklmnopqrstuvwxyz")
 			->setColor(sf::Color::Green)
 			.setScale(15.f)
 			.setMode(ir::render::Mode::WIREFRAME);
 	}
 
-	void onReceiveEvent(const sf::Event& event) { }
+	void onReceiveEvent(const sf::Event& event) {
+	}
 
 	void onUpdate() { }
 

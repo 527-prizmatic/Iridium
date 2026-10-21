@@ -45,7 +45,7 @@ namespace ir {
 		/// The object is considered valid if and only if both have been correctly allocated.
 		/// @return Whether the application window has been properly initialized and is ready for rendering
 		bool isValid() {
-			return renderWindow_ != nullptr && renderTexture_ != nullptr && rect_ != nullptr;
+			return renderWindow_ && renderTexture_ && rect_;
 		}
 
 		/// @brief Sets target FPS.
@@ -73,9 +73,9 @@ namespace ir {
 		void enableMouseCursor(bool val);
 
 	private:
-		std::shared_ptr<sf::RenderWindow> renderWindow_;
-		std::unique_ptr<sf::RenderTexture> renderTexture_;
-		std::unique_ptr<sf::RectangleShape> rect_; ///< Rectangle shape used for rendering the texture onto the window upon calling Flush()
+		ir::SafePointer<sf::RenderWindow> renderWindow_;
+		ir::SafePointer<sf::RenderTexture> renderTexture_;
+		ir::SafePointer<sf::RectangleShape> rect_; ///< Rectangle shape used for rendering the texture onto the window upon calling Flush()
 		std::string windowTitle_ {};
 		unsigned int fps_ { 60u }; ///< Target FPS
 		

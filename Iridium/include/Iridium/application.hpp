@@ -47,20 +47,20 @@ namespace ir {
 		}
 
 	private:
-		std::unique_ptr<ir::StateMachine> stateMachine_;
-		std::unique_ptr<ir::ApplicationWindow> appWindow_;
-		std::unique_ptr<ir::GameClock> gameClock_;
-		std::unique_ptr<ir::input::Mouse> mouse_;
-		std::unique_ptr<ir::input::Keyboard> keyboard_;
-		std::unique_ptr<ir::render::VertexRenderer> vertexRenderer_;
-		std::unique_ptr<ir::AssetManager> assetManager_;
-		std::unique_ptr<ir::SoundManager> soundManager_;
-		std::unique_ptr<ir::ApplicationState> appState_;
+		ir::SafePointer<ir::StateMachine> stateMachine_;
+		ir::SafePointer<ir::ApplicationWindow> appWindow_;
+		ir::SafePointer<ir::GameClock> gameClock_;
+		ir::SafePointer<ir::input::Mouse> mouse_;
+		ir::SafePointer<ir::input::Keyboard> keyboard_;
+		ir::SafePointer<ir::render::VertexRenderer> vertexRenderer_;
+		ir::SafePointer<ir::AssetManager> assetManager_;
+		ir::SafePointer<ir::SoundManager> soundManager_;
+		ir::SafePointer<ir::ApplicationState> appState_;
 
 		template <typename T, typename... Args>
-		void initializeComponent(std::unique_ptr<T>& component, Args... args) {
-			component = std::make_unique<T>(args...);
-			if (component == nullptr) {
+		void initializeComponent(ir::SafePointer<T>& component, Args... args) {
+			component.create(args...);
+			if (!component) {
 				throw ir::Exceptions::InitializationError(std::string{typeid(T).name()} + " component of Application");
 			}
 		}

@@ -26,7 +26,15 @@ namespace ir {
 
 		/// @brief Initializes a resource with a construction argument list
 		template <typename... Args>
-		T* Create(Args... args) {
+		T* create(Args... args) {
+			ptr_ = std::make_unique<Type_>(args...);
+			return ptr_.get();
+		}
+
+		/// @brief Initializes a resource with a construction argument list
+		template <typename U, typename... Args>
+		requires std::is_base_of<T, U>::value
+		U* create(Args... args) {
 			ptr_ = std::make_unique<Type_>(args...);
 			return ptr_.get();
 		}
@@ -60,21 +68,25 @@ namespace ir {
 
 		/// @brief Member-of-pointer operator
 		inline Type_* operator->() {
-			if (ptr_ == nullptr) {
-				if (!HandleInvalid()) {
-					throw ir::Exceptions::InvalidSafePtr {};
-				}
-			}
+			check();
+			return ptr_.get();
+		}
+
+		/// @brief Member-of-pointer operator
+		inline Type_* operator->() const {
+			check();
 			return ptr_.get();
 		}
 
 		/// @brief Indirection operator
 		inline Type_* operator*() {
-			if (ptr_ == nullptr) {
-				if (!HandleInvalid()) {
-					throw ir::Exceptions::InvalidSafePtr {};
-				}
-			}
+			check();
+			return ptr_.get();
+		}
+
+		/// @brief Indirection operator
+		inline Type_* operator*() const {
+			check();
 			return ptr_.get();
 		}
 
@@ -83,22 +95,48 @@ namespace ir {
 			return static_cast<bool>(ptr_);
 		}
 
+		inline T& value() {
+			check();
+			return *ptr_.get();
+		}
+
+		inline T& value() const {
+			check();
+			return *ptr_.get();
+		}
+
+		inline T* address() {
+			return &(*ptr_.get());
+		}
+
+		inline T* address() const {
+			return &(*ptr_.get());
+		}
+
 		/// @brief Destroys stored resource.
-		inline void Reset() noexcept {
+		inline void reset() noexcept {
 			ptr_.reset();
 		}
 
 		/// @brief Releases resource ownership.
-		inline Type_* Release() noexcept {
+		inline Type_* release() noexcept {
 			return ptr_.release();
 		}
 
 	protected:
-		std::unique_ptr<Type_> ptr_;
+		mutable std::unique_ptr<Type_> ptr_;
+
+		void check() const {
+			if (ptr_ == nullptr) {
+				if (!handleInvalid()) {
+					throw ir::Exceptions::InvalidSafePtr {};
+				}
+			}
+		}
 
 		/// @brief Function to execute upon attempting to dereference an invalid pointer
 		/// @return Whether the dereferencing operation can continue safely (false throws `ir::Exceptions::InvalidSafePtr`)
-		inline virtual bool HandleInvalid() {
+		inline virtual bool handleInvalid() const {
 			LOG_ERROR("Attempted to dereference invalid safe pointer");
 			return false;
 		}
@@ -120,7 +158,7 @@ namespace ir {
 		LazyPointer(Args... args) : SafePointer<T>(args...) {}
 	
 	protected:
-		inline virtual bool HandleInvalid() override {
+		inline virtual bool handleInvalid() const override {
 			LOG_WARN("Attempted to dereference invalid lazy pointer. Initializing with default values");
 			SafePointer<T>::ptr_ = std::make_unique<T>();
 			return SafePointer<T>::ptr_ != nullptr;

@@ -44,7 +44,7 @@ namespace ir {
 	}
 
 	void ApplicationWindow::flush() {
-		renderWindow_->draw(*rect_);
+		renderWindow_->draw(rect_.value());
 		renderWindow_->display();
 	}
 
@@ -73,14 +73,13 @@ namespace ir {
 	}
 
 	void ApplicationWindow::allocateResources(sf::Vector2u size) {
-		if (renderWindow_ != nullptr) renderWindow_.reset();
-		if (renderTexture_ != nullptr) renderTexture_.reset();
-
 		sf::VideoMode vmode { sf::VideoMode::getDesktopMode() };
 		vmode.size = size;
-		renderWindow_ = std::make_shared<sf::RenderWindow>(vmode, "Window", sf::Style::None);
-		renderTexture_ = std::make_unique<sf::RenderTexture>(size);
-		if (rect_ == nullptr) rect_ = std::make_unique<sf::RectangleShape>(sf::Vector2f{size});
+
+		renderWindow_.create(vmode, "Window", sf::Style::None);
+		renderTexture_.create(size);
+		rect_.create(sf::Vector2f{size});
+
 		configureRect();
 	}
 
@@ -98,7 +97,7 @@ namespace ir {
 
 	[[nodiscard]] sf::Vector2i ApplicationWindow::getMouseCursorPosition() const {
 		if (renderWindow_) {
-			return sf::Mouse::getPosition(*renderWindow_);
+			return sf::Mouse::getPosition(renderWindow_.value());
 		} else {
 			return sf::Mouse::getPosition();
 		}

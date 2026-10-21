@@ -39,6 +39,8 @@ namespace ir {
 		ir::render::VertexRenderer* getRenderer() { return renderer_; }
 	
 	protected:
+		/// @brief Vertex renderer associated to this render target.
+		/// Note that the render target does not own the renderer. It must be injected with `setRenderer()`.
 		ir::render::VertexRenderer* renderer_;
 
 		void expectValid();

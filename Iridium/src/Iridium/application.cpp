@@ -12,27 +12,27 @@ namespace ir {
 				initializeComponent(keyboard_);
 
 				initializeComponent(assetManager_);
-				initializeComponent(soundManager_, &*assetManager_);
+				initializeComponent(soundManager_, assetManager_.address());
 
 				initializeComponent(stateMachine_);
 
 				initializeComponent(appState_);
 				
-				context_.gameClock = &*gameClock_;
-				context_.mouse = &*mouse_;
-				context_.keyboard = &*keyboard_;
-				context_.assetManager = &*assetManager_;
-				context_.soundManager = &*soundManager_;
-				context_.appState = &*appState_;
+				context_.gameClock = gameClock_.address();
+				context_.mouse = mouse_.address();
+				context_.keyboard = keyboard_.address();
+				context_.assetManager = assetManager_.address();
+				context_.soundManager = soundManager_.address();
+				context_.appState = appState_.address();
 			});
 		
 			initializeComponent(appWindow_, ir::Vector{ 1280.f, 720.f });
 			appWindow_->setFPS(60u);
-			initializeComponent(vertexRenderer_, &*appWindow_);
+			initializeComponent(vertexRenderer_, appWindow_.address());
 			t1.join();
 
-			context_.appWindow = &*appWindow_;
-			context_.vertexRenderer = &*vertexRenderer_;
+			context_.appWindow = appWindow_.address();
+			context_.vertexRenderer = vertexRenderer_.address();
 			
 			stateMachine_->registerContext(&context_);
 		}
@@ -51,8 +51,8 @@ namespace ir {
 		while (!stateMachine_->hasRequestedExit()) {
 			gameClock_->startTick();
 			appWindow_->reduceBackgroundResourceUsage();
-			mouse_->update(*appWindow_);
-			keyboard_->update(*appWindow_);
+			mouse_->update(appWindow_.value());
+			keyboard_->update(appWindow_.value());
 
 			/// Keep StateMachine init last
 			stateMachine_->initialize();
@@ -67,13 +67,13 @@ namespace ir {
 	}
 
 	void Application::expectInitialized() {
-		Expects(appWindow_ != nullptr);
-		Expects(vertexRenderer_ != nullptr);
-		Expects(gameClock_ != nullptr);
-		Expects(mouse_ != nullptr);
-		Expects(keyboard_ != nullptr);
-		Expects(stateMachine_ != nullptr);
+		Expects(appWindow_);
+		Expects(vertexRenderer_);
+		Expects(gameClock_);
+		Expects(mouse_);
+		Expects(keyboard_);
+		Expects(stateMachine_);
 		Expects(assetManager_);
-		Expects(soundManager_ != nullptr);
+		Expects(soundManager_);
 	}
 }

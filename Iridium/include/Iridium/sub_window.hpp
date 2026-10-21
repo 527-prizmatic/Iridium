@@ -38,7 +38,7 @@ namespace ir {
 		/// The object is considered valid if it has been correctly allocated.
 		/// @return Whether the subwindow has been properly initialized and is ready for rendering
 		bool isValid() {
-			return renderTexture_ != nullptr && frame_ != nullptr;
+			return renderTexture_ && frame_;
 		}
 
 		/// @brief Whether a frame should be rendered around the subwindow upon calling flushToTarget().
@@ -52,9 +52,9 @@ namespace ir {
 		ir::Vector position() const { return position_; }
 
 	private:
-		std::unique_ptr<sf::RenderTexture> renderTexture_;
-		std::unique_ptr<ir::render::Quad> rect_; ///< Rectangle shape used for rendering the subwindow upon calling flushToTarget()
-		std::unique_ptr<ir::render::Rectangle> frame_; ///< Rectangle shape used to render the frame
+		ir::SafePointer<sf::RenderTexture> renderTexture_;
+		ir::SafePointer<ir::render::Quad> rect_; ///< Rectangle shape used for rendering the subwindow upon calling flushToTarget()
+		ir::SafePointer<ir::render::Rectangle> frame_; ///< Rectangle shape used to render the frame
 		ir::Vector position_; ///< Where to draw the subwindow relative to its parent
 
 		bool renderFrame_ { true }; ///< Whether to draw a frame around the subwindow
