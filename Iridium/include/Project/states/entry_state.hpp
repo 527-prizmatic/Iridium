@@ -12,6 +12,9 @@ public:
 			->setColor(sf::Color::Green)
 			.setScale(15.f)
 			.setMode(ir::render::Mode::WIREFRAME);
+
+		auto handle = context_->assetManager->registerModel("tools\\cross.vmf");
+		context_->assetManager->deleteModel(handle);
 	}
 
 	void onReceiveEvent(const sf::Event& event) {

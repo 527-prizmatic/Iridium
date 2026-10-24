@@ -163,7 +163,7 @@ namespace ir::render {
 	}
 
 	ModelRenderer& ModelRenderer::setModel(Model&& model) {
-		model_ = model;
+		model_ = std::move(model);
 		resetCacheCounter();
 		return *this;
 	}

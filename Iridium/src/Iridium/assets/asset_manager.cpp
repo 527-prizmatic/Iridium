@@ -7,7 +7,8 @@ namespace ir {
 		
 	}
 
-	#pragma region sf::Texture
+
+#pragma region sf::Texture
 	template <>
 	ir::TextureHandle AssetManager::registerAsset<ir::TextureAsset, ir::TextureHandle>(std::filesystem::path name) {
 		ir::TextureHandle handle = std::hash<std::string>{}(name.string());
@@ -18,6 +19,7 @@ namespace ir {
 		return handle;
 	}
 
+
 	template <>
 	sf::Texture* AssetManager::getAsset<ir::TextureAsset, ir::TextureHandle>(ir::TextureHandle handle) {
 		if (textures_.find(handle) == textures_.end()) {
@@ -25,10 +27,23 @@ namespace ir {
 		}
 		return &*textures_.at(handle);
 	}
+
+
+	template <>
+	bool AssetManager::deleteAsset<ir::TextureAsset, ir::TextureHandle>(ir::TextureHandle handle) {
+		if (textures_.find(handle) != textures_.end()) {
+			textures_.erase(handle);
+			return true;
+		}
+		return false;
+	}
 	
+
 	ir::TextureHandle AssetManager::registerTexture(std::filesystem::path name) { return registerAsset<ir::TextureAsset, ir::TextureHandle>(name); }
 	ir::TextureAsset* AssetManager::getTexture(ir::TextureHandle handle) { return getAsset<ir::TextureAsset, ir::TextureHandle>(handle); }
+	bool AssetManager::deleteTexture(ir::TextureHandle handle) { return deleteAsset<ir::TextureAsset, ir::TextureHandle>(handle); }
 #pragma endregion
+
 
 #pragma region sf::SoundBuffer
 	template <>
@@ -41,6 +56,7 @@ namespace ir {
 		return handle;
 	}
 
+
 	template <>
 	sf::SoundBuffer* AssetManager::getAsset<ir::SoundAsset, ir::SoundHandle>(ir::SoundHandle handle) {
 		if (sounds_.find(handle) == sounds_.end()) {
@@ -49,9 +65,22 @@ namespace ir {
 		return &*sounds_.at(handle);
 	}
 	
+
+	template <>
+	bool AssetManager::deleteAsset<ir::SoundAsset, ir::SoundHandle>(ir::SoundHandle handle) {
+		if (sounds_.find(handle) != sounds_.end()) {
+			sounds_.erase(handle);
+			return true;
+		}
+		return false;
+	}
+	
+
 	ir::SoundHandle AssetManager::registerSound(std::filesystem::path name) { return registerAsset<ir::SoundAsset, ir::SoundHandle>(name); }
 	ir::SoundAsset* AssetManager::getSound(ir::SoundHandle handle) { return getAsset<ir::SoundAsset, ir::SoundHandle>(handle); }
+	bool AssetManager::deleteSound(ir::SoundHandle handle) { return deleteAsset<ir::SoundAsset, ir::SoundHandle>(handle); }
 #pragma endregion
+
 
 #pragma region sf::Music
 	template <>
@@ -64,6 +93,7 @@ namespace ir {
 		return handle;
 	}
 
+
 	template <>
 	ir::MusicAsset* AssetManager::getAsset<ir::MusicAsset, ir::MusicHandle>(ir::MusicHandle handle) {
 		if (musics_.find(handle) == musics_.end()) {
@@ -72,13 +102,30 @@ namespace ir {
 		return &*musics_.at(handle);
 	}
 	
+
+	template <>
+	bool AssetManager::deleteAsset<ir::MusicAsset, ir::MusicHandle>(ir::MusicHandle handle) {
+		if (musics_.find(handle) != musics_.end()) {
+			musics_.erase(handle);
+			return true;
+		}
+		return false;
+	}
+	
+
 	ir::MusicHandle AssetManager::registerMusic(std::filesystem::path name) { return registerAsset<ir::MusicAsset, ir::MusicHandle>(name); }
 	ir::MusicAsset* AssetManager::getMusic(ir::MusicHandle handle) { return getAsset<ir::MusicAsset, ir::MusicHandle>(handle); }
+	bool AssetManager::deleteMusic(ir::MusicHandle handle) { return deleteAsset<ir::MusicAsset, ir::MusicHandle>(handle); }
 #pragma endregion
+
 
 #pragma region ir::render::Model
 	template <>
 	ir::ModelHandle AssetManager::registerAsset<ir::ModelAsset, ir::ModelHandle>(std::filesystem::path name) {
+		if (name.has_extension() && name.extension() == ".vmf") {
+			LOG_WARN(std::string("Gave model name \"") + name.string() + std::string("\" with .vmf extension, sanitizing"));
+			name.replace_extension("");
+		}		
 		ir::ModelHandle handle = std::hash<std::string>{}(name.string());
 		if (models_.find(handle) != models_.end()) {
 			throw name.string();
@@ -87,6 +134,7 @@ namespace ir {
 		return handle;
 	}
 
+	
 	template <>
 	ir::ModelAsset* AssetManager::getAsset<ir::ModelAsset, ir::ModelHandle>(ir::ModelHandle handle) {
 		if (models_.find(handle) == models_.end()) {
@@ -95,9 +143,22 @@ namespace ir {
 		return &*models_.at(handle);
 	}
 	
+
+	template <>
+	bool AssetManager::deleteAsset<ir::ModelAsset, ir::ModelHandle>(ir::ModelHandle handle) {
+		if (models_.find(handle) != models_.end()) {
+			models_.erase(handle);
+			return true;
+		}
+		return false;
+	}
+	
+
 	ir::ModelHandle AssetManager::registerModel(std::filesystem::path name) { return registerAsset<ir::ModelAsset, ir::ModelHandle>(name); }
 	ir::ModelAsset* AssetManager::getModel(ir::ModelHandle handle) { return getAsset<ir::ModelAsset, ir::ModelHandle>(handle); }
+	bool AssetManager::deleteModel(ir::ModelHandle handle) { return deleteAsset<ir::ModelAsset, ir::ModelHandle>(handle); }
 #pragma endregion
+
 
 #pragma region Music playback
 	void AssetManager::playMusic(ir::MusicHandle handle) {
@@ -108,6 +169,7 @@ namespace ir {
 		music->play();
 	}
 
+
 	void AssetManager::pauseMusic(ir::MusicHandle handle) {
 		auto music = getMusic(handle);
 		if (music == nullptr) {
@@ -116,6 +178,7 @@ namespace ir {
 		music->pause();
 	}
 	
+
 	void AssetManager::stopMusic(ir::MusicHandle handle) {
 		auto music = getMusic(handle);
 		if (music == nullptr) {
@@ -124,6 +187,7 @@ namespace ir {
 		music->stop();
 	}
 	
+
 	void AssetManager::setMusicVolume(ir::MusicHandle handle, float volume) {
 		auto music = getMusic(handle);
 		if (music == nullptr) {
@@ -131,6 +195,7 @@ namespace ir {
 		}
 		music->setVolume(ir::math::clamp(volume, 0.f, 100.f));
 	}
+
 
 	sf::Music::Status AssetManager::getMusicStatus(ir::MusicHandle handle) {
 		auto music = getMusic(handle);
